@@ -10,6 +10,24 @@
   </head>
 
   <body>
-    <%= yield %>
+      <div class="main_part" >
+          <nav>
+             <%= render partial: 'layouts/nav' %>
+          </nav>
+          <div class="container-fluid">
+              <main>
+                  <header>
+                      <%= render partial: 'layouts/header' %>
+                  </header>
+                  <%= yield %>
+                  <footer>
+                    <%= render partial: 'layouts/footer' %>
+                  </footer>
+              </main>
+          </div>
+      </div>
+      <div class="show_about">
+          <%= render partial: 'layouts/card' %>
+      </div>
   </body>
 </html>

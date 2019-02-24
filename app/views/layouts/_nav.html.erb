@@ -1,0 +1,52 @@
+<div class="container" style="height:100%; padding: 0px 0px; margin:0px 0px; max-width:100%;">
+        <div class="ropi">
+            <%= image_tag "1.jpg" , :class => "profile" %>
+        </div>
+        <ul style="list-style: none; margin-top:5px;" id="imgst">
+            <li>
+                <%= link_to "Home", root_path , :class => "btn btn-primary btn-lg li-imga" %>
+            </li>
+            <li>
+<!--                <%= link_to "About", "https://twitter.com/qc_toby", :class => "btn btn-primary btn-lg li-imga", :target => "_blank" %>-->
+                <button class="btn btn-primary btn-lg li-imga hidden_about">About</button>
+            </li>
+            <li>
+                <%= link_to "Facebook", "https://www.facebook.com/profile.php?id=100010357530815", :class => "btn btn-primary btn-lg li-imga", :target => "_blank" %>
+            </li>
+            <li>
+                <%= link_to "Github", "https://github.com/ykurey", :class => "btn btn-primary btn-lg li-imga", :target => "_blank" %>
+            </li>
+            <li>
+                <%= link_to "Twitter", "https://twitter.com/qc_toby", :class => "btn btn-primary btn-lg li-imga", :target => "_blank" %>
+            </li>
+            <li>
+                <%= link_to "Instagram", "https://www.instagram.com/toby.qc/", :class => "btn btn-primary btn-lg li-imga", :target => "_blank" %>
+            </li>
+            <li>
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent; border:none; box-shadow:none; margin: 10px 10px;">
+                      CV
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item" href="#">Chinese</a>
+                      <a class="dropdown-item" href="#">English</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="navbar navbar-expand-lg navbar-light bg-light" id="sma">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup" >
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link" href="#">Features</a>
+              <a class="nav-item nav-link" href="#">Pricing</a>
+              <a class="nav-item nav-link disabled" href="#">Disabled</a>
+            </div>
+          </div>
+        </div>
+</div>

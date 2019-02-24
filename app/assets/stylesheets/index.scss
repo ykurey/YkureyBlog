@@ -1,0 +1,175 @@
+// Place all the styles related to the bloghome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.show_about{
+    background-image: url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    display:none;
+    height: 100vh;
+    padding-top: 50px;
+    overflow-y:auto;
+    position: relative;
+}
+
+#card{
+    margin: 30px auto;
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background-color:white;
+    padding-top:50px;
+    text-align: center;
+    border-radius: 5%;
+}
+.show_my_pic{
+    margin: 0px auto;
+    display: block;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+.show_name{
+    display: block;
+    font-size:1.5em;
+    margin-top:20px;
+}
+.close_show{
+    position: absolute;
+    right: 30px;
+    top: 0px;
+    font-size: 3em;
+    cursor: pointer;
+}
+
+#article-title-font-size{
+    font-size: 1.5em;
+}
+
+#divpage{
+    margin-top:30px;
+    margin-left: 5px;
+}
+
+#searchbutton{
+    display: none;
+}
+
+//nav
+nav{
+    display: block;
+    height: 60px;
+//    background-image: url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+}
+
+#imgst .li-imga{
+    margin:10px 10px;
+    background-color: transparent;
+    border:none;
+    box-shadow:none;
+}
+
+.ropi{
+    display: inline;
+    height:100%;
+    width:100%;
+    padding:8px 5px;
+    display: none;
+}
+
+#imgst{
+//    display: inline;
+    display: none;
+}
+
+#sma{
+    position:absoulte;z-index:5555;
+}
+
+//#imgst li{
+//    display: inline;
+//}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-top: 3px;
+    display: none;
+}
+
+//header
+header{
+    height: 220px;
+}
+
+//index
+main{
+/*    高度不用設，用多少撐多少*/
+    position: relative;
+    width:100%;
+    left:0;
+    height: 100%;
+    max-width: 100%;
+}
+
+
+//footer
+footer{
+    height: 100px;
+}
+
+@media (min-width: 960px) {
+    #article-title-font-size{
+        font-size: 2.5em;
+    }
+
+    #divpage{
+        margin-left: 20%;
+    }
+    .ropi{
+        display: block;
+        padding: 20px 18px;
+        height:200px;
+        max-width: 100%;
+    }
+    .profile {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto;
+        margin-left: 20px;
+        display: block;
+    }
+    nav{
+        position: fixed;
+        width: 250px;
+        height: 100%;
+        z-index: 100;
+        background-image: url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+        overflow-y: auto;
+    }
+    main{
+        width: calc(100% - 250px);
+        left: 250px;
+    }
+
+    .ropi ul li{
+        display: block;
+    }
+
+    #imgst{
+        display: block;
+    }
+
+    #imgst li{
+        display: block;
+    }
+
+    #sma{
+        display: none;
+    }
+    #searchbutton{
+        display:flex;
+    }
+}
