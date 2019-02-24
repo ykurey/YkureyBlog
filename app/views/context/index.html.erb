@@ -5,13 +5,13 @@
         <article>
           <div style="word-wrap: break-word; word-break: normal; height: 100%;">
             <div id="article-title-font-size" ><a href="#"><%= article.title %></a></div>
-            <span class="text-muted"><%= article.pentime.strftime("%Y-%m-%d %A") %></span><br/>
+            <span class="text-muted"><%# article.pentime.strftime("%Y-%m-%d %A") %></span><br/>
             <a href="#" class="text-success"><%= article.tag %></a><br/>
-            <spin><%= link_to "continue read", context_path(article.id)%></spin>
+            <spin><%# link_to "continue read", context_path(article.id)%></spin>
           </div>
 <!--
                     <div style="margin-top: 9px">
-          <%= link_to "edit", edit_context_path(article) %>
+          <%# link_to "edit", edit_context_path(article) %>
                     </div>
 -->
         </article>
