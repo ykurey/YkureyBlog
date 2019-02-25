@@ -55,3 +55,23 @@
     </div>
   </div>
 </div>
+
+<script>
+    //搜尋功能
+    var search_title = [];
+    var search_id = [];
+    <% @searchs.each do |search| %>
+        search_title.push( "<%= search[1] %>" );
+        search_id.push( "<%= search[0] %>" );
+    <% end %>
+    $( "#tags" ).autocomplete({
+      source: search_title
+    });
+    $("#button-addon2").click(function(){
+        for(var i = 0; i < search_title.length; i++){
+            if( $("#tags").val() == search_title[i]){
+                $("a").attr("href", "/contexts/" + search_id[i])
+            }
+        }
+    });
+</script>

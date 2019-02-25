@@ -17,10 +17,11 @@ class ContextsController < ApplicationController
       @page = 1
     end
 
-    @poii = []
+    @searchs = []
     @articles.each do |article|
-      @poii << [article.id, article.title]
+      @searchs << [article.id, article.title]
     end
+
   #        限制筆數
     @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
   end
