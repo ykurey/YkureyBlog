@@ -1,7 +1,7 @@
-class ContextController < ApplicationController
+class ContextsController < ApplicationController
 
   LIMIT_PAGE = 5
-  
+
   def index
     @articles = Article.all
     @first_page = 1
@@ -21,8 +21,7 @@ class ContextController < ApplicationController
     @articles.each do |article|
       @poii << [article.id, article.title]
     end
-#        限制筆數
+  #        限制筆數
     @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
   end
-
 end
