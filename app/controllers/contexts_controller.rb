@@ -24,4 +24,10 @@ class ContextsController < ApplicationController
   #        限制筆數
     @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
   end
+
+  def show
+    @article = Article.find_by(id: params[:id])
+    @previous = Article.where("id < ?", params[:id]).order(:id).first
+    @next = Article.where("id > ?", params[:id]).order(:id).first
+  end
 end
