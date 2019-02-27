@@ -9,11 +9,14 @@
             <a href="#" class="text-success"><%= article.tag %></a><br/>
             <spin><%= link_to "continue read", context_path(article.id)%></spin>
           </div>
-<!--
+
                     <div style="margin-top: 9px">
+                      <% if current_user %>
+                      編輯
+                      <% end %>
           <%# link_to "edit", edit_context_path(article) %>
                     </div>
--->
+
         </article>
       <% end %>
 
