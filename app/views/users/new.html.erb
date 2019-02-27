@@ -1,0 +1,21 @@
+<h1>Users#sign_up</h1>
+<p>Find me in app/views/users/sign_up.html.erb</p>
+
+
+<%= form_for @user do |user| %>
+
+  <p>
+    <%= user.label :email %>
+    <%= user.text_field :email %>
+  </p>
+  <p>
+    <%= user.label :password %>
+    <%= user.password_field :password %>
+  </p>
+  <p>
+    <%# user.label :password_confirmation %>
+    <%# user.password_field :password_confirmation %>
+  </p>
+  <p class="button"><%= user.submit %></p>
+
+<% end %>
