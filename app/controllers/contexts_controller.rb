@@ -4,23 +4,26 @@ class ContextsController < ApplicationController
   LIMIT_PAGE = 5
 
   def index
-    puts "123"
-    puts session[:user_id].present?
-    puts "---"
-
-    @re = Article.where(:user_id => session[:user_id])
-    @re.each do |uu|
-      puts uu.title
-    end
-
-    puts "---"
+    # puts "123"
+    # puts session[:user_id].present?
+    # puts "---"
+    #
+    # @re = Article.where(:user_id => session[:user_id])
+    # @re.each do |uu|
+    #   puts uu.title
+    # end
+    #
+    # puts "---"
     # @c8 = Article.find_by_sql("select * from articles where user_id = '#{session[:user_id]}' ")
     # @c8.each do |oo|
     #   puts oo.title
     # end
 
+    # @ppa = Article.where(:user_id => params[:user_id])
+    # puts @ppa.first.title
 
-    @articles = Article.all
+    @username = User.find_by_email(params[:user_id])
+    @articles = Article.where(:user_id => @username.id )
     @first_page = 1
     if(@articles.count % LIMIT_PAGE != 0)
       @last_page = ( @articles.count / LIMIT_PAGE ) + 1
@@ -44,9 +47,10 @@ class ContextsController < ApplicationController
   end
 
   def show
+    @username = User.find_by_email(params[:user_id])
     @article = Article.find_by(id: params[:id])
-    @previous = Article.where("id < ?", params[:id]).order(:id).first
-    @next = Article.where("id > ?", params[:id]).order(:id).first
+    @previous = Article.where("user_id = ? and id < ?", @username.id, params[:id]).order(:id).first
+    @next = Article.where("user_id = ? and id > ?", @username.id, params[:id]).order(:id).first
   end
 
   private

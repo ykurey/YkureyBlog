@@ -12,6 +12,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    mail = User.find_by_email(params[:id])
+    if session[:user_id] == mail.id
+      @user = User.find_by_id(session[:user_id])
+    end
+  end
+
 
   private
 

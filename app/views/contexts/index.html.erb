@@ -7,7 +7,8 @@
             <div id="article-title-font-size" ><a href="#"><%= article.title %></a></div>
             <span class="text-muted"><%# article.pentime.strftime("%Y-%m-%d %A") %></span><br/>
             <a href="#" class="text-success"><%= article.tag %></a><br/>
-            <spin><%= link_to "continue read", context_path(article.id)%></spin>
+            <%= article.id %>
+            <spin><%= link_to "continue read", user_context_path(params[:user_id] ,article.id) %></spin>
           </div>
 
                     <div style="margin-top: 9px">

@@ -1,16 +1,18 @@
 class SigninsController < ApplicationController
 
-  def new
+  def index
+
   end
 
   def create
     user = User.authenticate(params[:email], params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to root_url, :notice => "登入成功"
+      user_email = User.find_by_id(user.id).email
+      redirect_to user_path(user_email), :notice => "登入成功"
     else
       flash.now.alert = "帳號或密碼錯誤"
-      render "new"
+      render "index"
     end
   end
 
