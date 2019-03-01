@@ -10,14 +10,13 @@
             <%= article.id %>
             <spin><%= link_to "continue read", user_context_path(params[:user_id] ,article.id) %></spin>
           </div>
-
-                    <div style="margin-top: 9px">
-                      <%# if tesa %>
-                      <%# 編輯 %>
-                      <%# end %>
-          <%# link_to "edit", edit_context_path(article) %>
-                    </div>
-
+          <div style="margin-top: 9px">
+            <% if current_user %>
+              <% if session[:user_id] == @username.id %>
+                <%= link_to "edit", edit_user_context_path(params[:user_id], article.id) %>
+              <% end %>
+            <% end %>
+          </div>
         </article>
       <% end %>
 

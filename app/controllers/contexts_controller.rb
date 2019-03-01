@@ -53,6 +53,29 @@ class ContextsController < ApplicationController
     @next = Article.where("user_id = ? and id > ?", user_id, params[:id]).order(:id).first
   end
 
+  def edit
+    user_id = User.find_by_email(params[:user_id]).id
+    if session[:user_id].nil?
+      #未登入
+      redirect_to root_path
+    else
+      session_user_mail = User.find_by_id(session[:user_id]).email
+      if session[:user_id] == user_id
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
+        if @article.nil?
+          #你沒有這篇文章
+          redirect_to user_contexts_path(session_user_mail)
+        end
+      else
+        #這篇違章不是你的
+        redirect_to user_contexts_path(session_user_mail)
+      end
+    end
+  end
+
+  def update
+  end
+
   private
   # def tesa
   #     @tesa ||= session[:user_id]

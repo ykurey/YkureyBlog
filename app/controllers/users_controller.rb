@@ -14,8 +14,18 @@ class UsersController < ApplicationController
 
   def show
     mail = User.find_by_email(params[:id])
-    if session[:user_id] == mail.id
-      @user = User.find_by_id(session[:user_id])
+    if mail.nil?
+      reUser = User.find_by_id(session[:user_id]).email
+      redirect_to user_path(reUser)
+    else
+      if session[:user_id] == mail.id
+        @user = User.find_by_id(session[:user_id])
+      elsif session[:user_id].nil?
+        redirect_to root_path
+      else
+        reUser = User.find_by_id(session[:user_id]).email
+        redirect_to user_path(reUser)
+      end
     end
   end
 
