@@ -47,10 +47,10 @@ class ContextsController < ApplicationController
   end
 
   def show
-    @username = User.find_by_email(params[:user_id])
-    @article = Article.find_by(id: params[:id])
-    @previous = Article.where("user_id = ? and id < ?", @username.id, params[:id]).order(:id).first
-    @next = Article.where("user_id = ? and id > ?", @username.id, params[:id]).order(:id).first
+    user_id = User.find_by_email(params[:user_id]).id
+    @article = Article.find_by_user_id_and_id(user_id, params[:id])
+    @previous = Article.where("user_id = ? and id < ?", user_id, params[:id]).order(:id).first
+    @next = Article.where("user_id = ? and id > ?", user_id, params[:id]).order(:id).first
   end
 
   private
