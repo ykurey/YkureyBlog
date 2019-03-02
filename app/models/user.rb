@@ -1,11 +1,7 @@
 class User < ApplicationRecord
 
-  # def to_param
-  #     self.username
-  #     #username
-  # end
-
   has_many :articles
+  has_many :users_informations
 
   attr_accessor :password
   before_save :encrypt_password
