@@ -11,8 +11,14 @@
  * It is generally better to create a new file per style scope.
  *
  *= require jquery-ui
+ * require_tree .
+ *= require argon.min
+ *= require argon
+ *= require_self
  */
 
-@import 'bootstrap';
-@import 'index';
-@import 'contexts';
+// @import 'bootstrap';
+// @import 'index';
+// @import 'contexts';
+@import 'nucleo/css/nucleo.css';
+@import '@fortawesome/fontawesome-free/css/all.min.css';

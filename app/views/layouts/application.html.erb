@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>YkureyBlog</title>
+    <title>Backstageykurey</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -9,35 +9,8 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-      <div class="main_part" >
-          <nav>
-             <%= render partial: 'layouts/nav' %>
-          </nav>
-          <div class="container-fluid">
-              <main>
-                  <header>
-                      <%= render partial: 'layouts/header' %>
-                      <% if current_user %>
-                        您好：<%= current_user.email %>.<br>
-                        <%= link_to "Log out", log_out_path %>
-                      <% else %>
-                        <%= link_to "Sign up", sign_up_path %> or
-                        <%= link_to "log in", log_in_path %>
-                      <% end %>
-                      <% flash.each do |name, msg| %>
-                        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-                      <% end %>
-                  </header>
-                  <%= yield %>
-                  <footer>
-                    <%= render partial: 'layouts/footer' %>
-                  </footer>
-              </main>
-          </div>
-      </div>
-      <div class="show_about">
-          <%= render partial: 'layouts/card' %>
-      </div>
+  <body >
+    <%= render partial: 'layouts/nav' %>
+    <%= yield %>
   </body>
 </html>
