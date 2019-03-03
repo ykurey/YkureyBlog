@@ -14,7 +14,9 @@
  *= require_tree .
  *= require argon.min
  *= require argon
- *= require nucleo/css/nucleo
- *= require @fortawesome/fontawesome-free/css/all.min
+ *= require vendor/nucleo/css/nucleo
+ *= require vendor/@fortawesome/fontawesome-free/css/all.min
  *= require_self
  */
+
+//import 他會另外去抓，上面那個是會用蟲一個大css檔案
