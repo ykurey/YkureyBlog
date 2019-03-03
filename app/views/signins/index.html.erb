@@ -107,14 +107,14 @@
             <div class="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <%= form_tag signins_path do %>
+            <%= form_tag signins_path, :role => "form" do %>
             <!-- <form role="form"> -->
               <div class="form-group mb-3">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
-                  <%= text_field_tag :email, "",:class => "form-control", :placeholder => "Email" %>
+                  <%= text_field_tag :username, "",:class => "form-control", :placeholder => "username" %>
                 </div>
               </div>
               <div class="form-group">

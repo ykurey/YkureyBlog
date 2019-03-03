@@ -22,7 +22,7 @@ class ContextsController < ApplicationController
     # @ppa = Article.where(:user_id => params[:user_id])
     # puts @ppa.first.title
 
-    @username = User.find_by_email(params[:user_id])
+    @username = User.find_by_username(params[:user_id])
     @articles = Article.where(:user_id => @username.id )
     @first_page = 1
     if(@articles.count % LIMIT_PAGE != 0)
@@ -47,28 +47,28 @@ class ContextsController < ApplicationController
   end
 
   def show
-    user_id = User.find_by_email(params[:user_id]).id
+    user_id = User.find_by_username(params[:user_id]).id
     @article = Article.find_by_user_id_and_id(user_id, params[:id])
     @previous = Article.where("user_id = ? and id < ?", user_id, params[:id]).order(:id).first
     @next = Article.where("user_id = ? and id > ?", user_id, params[:id]).order(:id).first
   end
 
   def edit
-    user_id = User.find_by_email(params[:user_id]).id
+    user_id = User.find_by_username(params[:user_id]).id
     if session[:user_id].nil?
       #未登入
       redirect_to root_path
     else
-      session_user_mail = User.find_by_id(session[:user_id]).email
+      session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == user_id
         @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
         if @article.nil?
           #你沒有這篇文章
-          redirect_to user_contexts_path(session_user_mail)
+          redirect_to user_contexts_path(session_user_userName)
         end
       else
         #這篇違章不是你的
-        redirect_to user_contexts_path(session_user_mail)
+        redirect_to user_contexts_path(session_user_userName)
       end
     end
   end
