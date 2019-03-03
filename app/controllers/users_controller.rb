@@ -12,20 +12,31 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
+  def edit
     mail = User.find_by_email(params[:id])
     if mail.nil?
       reUser = User.find_by_id(session[:user_id]).email
-      redirect_to user_path(reUser)
+      redirect_to edit_user_path(reUser)
     else
       if session[:user_id] == mail.id
-        @user = User.find_by_id(session[:user_id])
+        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
       elsif session[:user_id].nil?
         redirect_to root_path
       else
         reUser = User.find_by_id(session[:user_id]).email
-        redirect_to user_path(reUser)
+        redirect_to edit_user_path(reUser)
       end
+    end
+  end
+
+  def update
+    puts params
+    userInformation = UsersInformation.find_by_user_id(session[:user_id])
+    if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :about))
+      reUser = User.find_by_id(session[:user_id]).email
+      redirect_to edit_user_path(reUser)
+    else
+      render :edit
     end
   end
 
