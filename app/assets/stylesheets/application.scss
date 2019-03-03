@@ -11,15 +11,10 @@
  * It is generally better to create a new file per style scope.
  *
  *= require jquery-ui
- * require_tree .
+ *= require_tree .
  *= require argon.min
  *= require argon
+ *= require nucleo/css/nucleo
+ *= require @fortawesome/fontawesome-free/css/all.min
  *= require_self
  */
-
- @import "nucleo.css";
- @import "all.min.css";
-// @import 'nucleo/css/nucleo';
-// @import '@fortawesome/fontawesome-free/css/all.min';
-// @import 'nucleo/css/nucleo.css';
-// @import '@fortawesome/fontawesome-free/css/all.min.css';
