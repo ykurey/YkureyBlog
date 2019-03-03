@@ -1,9 +1,7 @@
-class SigninsController < ApplicationController
-
+class SigninController < ApplicationController
   layout "login"
 
   def index
-
   end
 
   def create
@@ -23,5 +21,4 @@ class SigninsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url, :notice => "登出成功!"
   end
-
 end
