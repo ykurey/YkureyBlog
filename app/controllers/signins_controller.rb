@@ -1,4 +1,5 @@
 class SigninsController < ApplicationController
+  layout "login"
 
   def index
 
@@ -9,7 +10,8 @@ class SigninsController < ApplicationController
     if user
       session[:user_id] = user.id
       user_email = User.find_by_id(user.id).email
-      redirect_to user_path(user_email), :notice => "登入成功"
+      # redirect_to user_path(user_email), :notice => "登入成功"
+      redirect_to edit_user_path(user_email)
     else
       flash.now.alert = "帳號或密碼錯誤"
       render "index"
