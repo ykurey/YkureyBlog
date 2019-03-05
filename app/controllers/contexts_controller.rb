@@ -1,5 +1,4 @@
 class ContextsController < ApplicationController
-  layout 'public_show', :only => :index
   LIMIT_PAGE = 5
 
   def index
