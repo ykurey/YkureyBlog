@@ -2,6 +2,10 @@ class SigninController < ApplicationController
   layout "login"
 
   def index
+    if session[:user_id] != nil
+      user_username = User.find_by_id(session[:user_id]).username
+      redirect_to edit_user_path(user_username)
+    end
   end
 
   def create
