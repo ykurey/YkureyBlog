@@ -91,38 +91,20 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <!-- <i class="ni ni-tv-2 text-primary"></i>  -->
               <i class="far fa-gem"></i>
-              Dashboard
+              關於我...
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <!-- <i class="ni ni-planet text-blue"></i>  -->
               <i class="far fa-gem"></i>
-              Icons
+              文章總覽
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">
-              <!-- <i class="ni ni-pin-3 text-orange"></i> -->
-              <i class="far fa-gem"></i>
-               Maps
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-            <%# link_to profile_path, :class => "nav-link" do %> <!--用do的話，前面就不是放名稱，直接往前一個格網址-->
-              <!-- <i class="ni ni-single-02 text-yellow"></i> -->
-              <i class="far fa-gem"></i>
-              User profile
-            <%# end %>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-            <%# link_to article_setting_index_path, :class => "nav-link" do %> <!--用do的話，前面就不是放名稱，直接往前一個格網址-->
-              <!-- <i class="ni ni-bullet-list-67 text-red"></i> -->
+            <%# link_to article_setting_index_path, :class => "nav-link" do %>
+            <%#用do的話，前面就不是放名稱，直接往前一個格網址%>
               <i class="far fa-gem"></i>
               Articles
             <%# end %>
@@ -130,46 +112,44 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <!-- <i class="ni ni-key-25 text-info"></i> -->
               <i class="far fa-gem"></i>
                Login
             </a>
-          </li>
-          <li class="nav-item">
-            <%= link_to(sign_out_path, :class => "nav-link") do %>
-              <i class="far fa-gem"></i>
-              登出
-            <% end %>
-          </li>
+          </li> -->
         </ul>
         <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <!-- <i class="ni ni-spaceship"></i>  -->
-              <i class="far fa-gem"></i>
-              Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <!-- <i class="ni ni-palette"></i>  -->
-              <i class="far fa-gem"></i>
-              Foundation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <!-- <i class="ni ni-ui-04"></i> -->
-              <i class="far fa-gem"></i>
-               Components
-            </a>
-          </li>
-        </ul>
+        <% if current_user %>
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading text-muted">編輯區</h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                <i class="far fa-gem"></i>
+                Getting started
+              </a>
+            </li> -->
+            <li class="nav-item">
+                <%= link_to edit_user_path(@userName), :class => "nav-link" do %> <!--用do的話，前面就不是放名稱，直接往前一個格網址-->
+                <i class="far fa-gem"></i>
+                編輯關於我
+                <% end %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="far fa-gem"></i>
+                 新增文章
+              </a>
+            </li>
+            <li class="nav-item">
+              <%= link_to sign_out_path, :class => "nav-link" do %>
+                <i class="far fa-gem"></i>
+                登出
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
       </div>
     </div>
   </nav>

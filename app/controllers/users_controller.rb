@@ -24,6 +24,7 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(reUser)
     else
       if session[:user_id] == userName.id
+        @userName = params[:id];
         @userInformation = UsersInformation.find_by_user_id(session[:user_id])
       elsif session[:user_id].nil?
         redirect_to root_path
