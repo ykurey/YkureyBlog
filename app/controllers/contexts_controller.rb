@@ -22,8 +22,10 @@ class ContextsController < ApplicationController
     # @ppa = Article.where(:user_id => params[:user_id])
     # puts @ppa.first.title
 
-    @username = User.find_by_username(params[:user_id])
-    @articles = Article.where(:user_id => @username.id )
+
+    @user = User.find_by_username(params[:user_id])
+    @userName = @user.username
+    @articles = Article.where(:user_id => @user.id )
     @first_page = 1
     if(@articles.count % LIMIT_PAGE != 0)
       @last_page = ( @articles.count / LIMIT_PAGE ) + 1

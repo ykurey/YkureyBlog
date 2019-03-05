@@ -96,10 +96,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <%= link_to user_contexts_path(@userName), :class => "nav-link" do %>
               <i class="far fa-gem"></i>
               文章總覽
-            </a>
+            <% end %>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">
