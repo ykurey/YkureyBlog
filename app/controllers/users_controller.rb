@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  layout "login", :only => :new
+  layout "log_in", :only => :new
 
   def new
     @user = User.new

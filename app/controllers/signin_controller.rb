@@ -1,5 +1,5 @@
 class SigninController < ApplicationController
-  layout "login"
+  layout "log_in"
 
   def index
     if session[:user_id] != nil

@@ -1,6 +1,5 @@
 class ContextsController < ApplicationController
-  # helper_method :tesa
-
+  layout 'public_show', :only => :index
   LIMIT_PAGE = 5
 
   def index
