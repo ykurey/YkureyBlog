@@ -3,6 +3,7 @@
   </div>
   <div class="col-xl-10 order-xl-1" >
     <div class="card" >
+      <%= image_tag @article.image_url if @article.image_url.present? %>
       <%# image_tag "1.jpg", :class => "card-img-top"%>
       <div class="card-body">
         <center>
