@@ -85,7 +85,7 @@ class ContextsController < ApplicationController
       session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == @user.id
         @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
-        if @article.update(params.require(:article).permit(:title, :author, :tag, :context))
+        if @article.update(params.require(:article).permit(:title, :author, :tag, :image, :context))
           redirect_to user_context_path(params[:user_id], params[:id])
         else
           render :edit
