@@ -13,7 +13,8 @@
         <%= @article.tag %><br/>
         <h5 class="card-title">Card title</h5>
         <p class="card-text">
-          <%= h(@article.context).gsub("\n", "<br>").html_safe %>
+          <%# h(@article.context).gsub("\n", "<br>").html_safe %>
+          <%= simple_format(@article.context)%>
         </p>
         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
       </div>

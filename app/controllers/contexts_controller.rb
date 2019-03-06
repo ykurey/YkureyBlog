@@ -55,13 +55,14 @@ class ContextsController < ApplicationController
   end
 
   def edit
-    user_id = User.find_by_username(params[:user_id]).id
+    @user = User.find_by_username(params[:user_id])
+    @userName = @user.username
     if session[:user_id].nil?
       #未登入
       redirect_to root_path
     else
       session_user_userName = User.find_by_id(session[:user_id]).username
-      if session[:user_id] == user_id
+      if session[:user_id] == @user.id
         @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
         if @article.nil?
           #你沒有這篇文章
@@ -75,6 +76,25 @@ class ContextsController < ApplicationController
   end
 
   def update
+    @user = User.find_by_username(params[:user_id])
+    @userName = @user.username
+    if session[:user_id].nil?
+      #未登入
+      redirect_to root_path
+    else
+      session_user_userName = User.find_by_id(session[:user_id]).username
+      if session[:user_id] == @user.id
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
+        if @article.update(params.require(:article).permit(:title, :author, :tag, :context))
+          redirect_to user_context_path(params[:user_id], params[:id])
+        else
+          render :edit
+        end
+      else
+        #這篇違章不是你的
+        redirect_to user_contexts_path(session_user_userName)
+      end
+    end
   end
 
   private
