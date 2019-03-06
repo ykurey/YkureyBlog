@@ -1,0 +1,61 @@
+<style>
+    header {
+        display: none;
+    }
+    main {
+        background: white;
+    }
+</style>
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-7">
+        <div class="row">
+            <div class="col-12">
+            <center>
+                <%= @article.title %><br/>
+                <%= @article.tag %><br/>
+                <%# @article.pentime.strftime("%Y-%m-%d %A") %><br/>
+                <%# @article.pentime.strftime("%H:%M") %><br/>
+            </center>
+                <p>
+                  <%= h(@article.context).gsub("\n", "<br>").html_safe %>
+                </p>
+                <div class="row">
+                    <div class="pagination col-1">
+                        <% if @previous != nil %>
+                            <div class="page-item">
+                                <%= link_to "Previous", user_context_path(params[:user_id], @previous), :class => "page-link" %>
+                            </div>
+                        <% end %>
+                    </div>
+                    <div class="col-10">
+                    </div>
+                    <div class="pagination col-1">
+                      <% if @next != nil %>
+                        <div class="page-item">
+                            <%= link_to "Next", user_context_path(params[:user_id], @next), :class => "page-link" %>
+                        </div>
+                      <% end %>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+              this.language = "zh_TW";
+            };
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://my-ykurey.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    <div class="col-3"></div>
+</div>

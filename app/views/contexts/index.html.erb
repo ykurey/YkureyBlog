@@ -6,7 +6,7 @@
       <div class="card" >
         <%= image_tag "1.jpg", :class => "card-img-top"%>
         <div class="card-body">
-          <h1 class="card-title"><%= article.title %></h1>
+          <h1 class="card-title display-2 text-black"><%= article.title %></h1>
           <p class="card-text"><%= truncate(article.context, length: 75)%></p>
           <%= link_to "繼 續 閱 讀 ...", user_context_path(params[:user_id] ,article.id), :class => "btn btn-primary" %>
           <% if current_user %>
