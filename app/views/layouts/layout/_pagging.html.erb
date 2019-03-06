@@ -1,0 +1,23 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <% if @page > @first_page %>
+      <li class="page-item">
+        <%= link_to user_contexts_path(page: @page - 1), :class => "page-link", "aria-label" => "Previous", :tabindex => "-1" do %>
+          <i class="fa fa-angle-left"></i>
+          <span class="sr-only">Previous</span>
+        <% end %>
+      </li>
+    <% end %>
+    <% (@first_page..@last_page).each do |page_number| %>
+      <li class="page-item"><%= link_to page_number, user_contexts_path(page: page_number), :class => "page-link" %></li>
+    <% end %>
+    <% if @page < @last_page %>
+      <li class="page-item">
+        <%= link_to user_contexts_path(page: @page + 1), :class => "page-link", :"aria-label" => "Next" do %>
+          <i class="fa fa-angle-right"></i>
+          <span class="sr-only">Next</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

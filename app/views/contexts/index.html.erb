@@ -2,51 +2,23 @@
   <div class="col-xl-2 order-xl-1" >
   </div>
   <div class="col-xl-8 order-xl-1" >
-    <div class="card" >
-      <%= image_tag "1.jpg", :class => "card-img-top"%>
-      <div class="card-body">
-        <h1>123</h1>
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <% @articles.each do |article| %>
+      <div class="card" >
+        <%= image_tag "1.jpg", :class => "card-img-top"%>
+        <div class="card-body">
+          <h1 class="card-title"><%= article.title %></h1>
+          <p class="card-text"><%= truncate(article.context, length: 75)%></p>
+          <%= link_to "繼 續 閱 讀 ...", user_context_path(params[:user_id] ,article.id), :class => "btn btn-primary" %>
+          <% if current_user %>
+            <% if session[:user_id] == @user.id %>
+              <%= link_to "編 輯", edit_user_context_path(params[:user_id], article.id), :class => "btn btn-primary" %>
+              <a href="#" class="btn btn-primary"> 刪除 </a>
+            <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
-    <div class="card" >
-      <%= image_tag "qwq.png", :class => "card-img-top"%>
-      <div class="card-body">
-        <h1>123</h1>
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" >
-      <%= image_tag "blue.png", :class => "card-img-top"%>
-      <div class="card-body">
-        <h1>123</h1>
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" >
-      <%= image_tag "1.jpg", :class => "card-img-top"%>
-      <div class="card-body">
-        <h1>123</h1>
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    <div class="card" >
-      <%= image_tag "1.jpg", :class => "card-img-top"%>
-      <div class="card-body">
-        <h1>123</h1>
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
+    <% end %>
+    <%= render partial: 'layouts/layout/pagging' %>
   </div>
   <div class="col-xl-2 order-xl-2 mb-5 mb-xl-0" >
   </div>
