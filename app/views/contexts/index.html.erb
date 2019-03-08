@@ -4,10 +4,14 @@
   <div class="col-xl-8 order-xl-1" >
     <% @articles.each do |article| %>
       <div class="card" >
-        <%= image_tag "1.jpg", :class => "card-img-top"%>
+        <%= image_tag(article.image_url ,:class => "card-img-top") if article.image_url.present? %>
         <div class="card-body">
           <h1 class="card-title display-2 text-black"><%= article.title %></h1>
-          <p class="card-text"><%= truncate(article.context, length: 75)%></p>
+          <p class="card-text" style="text-overflow: ellipsis">
+            <%# truncate(article.context, length: 75)%>
+            <%= (truncate(strip_tags(article.context), :length => 30, :omission => '...')).html_safe %>
+            <%# raw article.context.truncate(75) %>
+          </p>
           <%= link_to "繼 續 閱 讀 ...", user_context_path(params[:user_id] ,article.id), :class => "btn btn-primary" %>
           <% if current_user %>
             <% if session[:user_id] == @user.id %>
