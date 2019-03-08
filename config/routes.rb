@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   get 'sign_up' => "users#new"
   root "signin#index"
   get 'sign_in' => "signin#index"
