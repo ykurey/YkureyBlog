@@ -70,6 +70,7 @@ class ContextsController < ApplicationController
       session_user_userName = User.find_by_id(session[:user_id]).username
       redirect_to user_context_path(session_user_userName, @Article.id)
     else
+      @qq = @Article.errors.full_messages
       render "new"
     end
   end
