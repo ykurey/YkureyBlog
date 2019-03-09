@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UsersInformation.create(:email => @user.email, :user_id => @user.id)
-      puts "user的create"
       redirect_to root_url, :notice => "註冊成功"
     else
       render "new"

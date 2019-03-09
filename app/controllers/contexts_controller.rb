@@ -46,6 +46,34 @@ class ContextsController < ApplicationController
     @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
   end
 
+  def new
+    @user = User.find_by_username(params[:user_id])
+    @userName = @user.username
+    if session[:user_id].nil?
+      #未登入
+      redirect_to root_path
+    else
+      session_user_userName = User.find_by_id(session[:user_id]).username
+      if session[:user_id] == @user.id
+        @article = Article.new
+      else
+        #這篇違章不是你的
+        redirect_to user_contexts_path(session_user_userName)
+      end
+    end
+  end
+
+  def create
+    @Article = Article.new(context_params)
+    @Article.user_id = 10
+    if @Article.save
+      session_user_userName = User.find_by_id(session[:user_id]).username
+      redirect_to user_context_path(session_user_userName, @Article.id)
+    else
+      render "new"
+    end
+  end
+
   def show
     @user = User.find_by_username(params[:user_id])
     @userName = @user.username
@@ -98,7 +126,9 @@ class ContextsController < ApplicationController
   end
 
   private
-  # def tesa
-  #     @tesa ||= session[:user_id]
-  # end
+
+  def context_params
+      params.require(:article).permit(:title, :author, :tag, :image, :context )
+  end
+
 end

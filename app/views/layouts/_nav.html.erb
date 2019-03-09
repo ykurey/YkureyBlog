@@ -137,10 +137,10 @@
                 <% end %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <%= link_to new_user_context_path(@userName), :class => "nav-link" do %>
                 <i class="far fa-gem"></i>
                  新增文章
-              </a>
+              <% end %>
             </li>
             <li class="nav-item">
               <%= link_to sign_out_path, :class => "nav-link" do %>
