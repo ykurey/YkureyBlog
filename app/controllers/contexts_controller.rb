@@ -72,7 +72,7 @@ class ContextsController < ApplicationController
     @Article.user_id = session[:user_id]
     if @Article.save
       session_user_userName = User.find_by_id(session[:user_id]).username
-      redirect_to user_context_path(session_user_userName, @Article.title)
+      redirect_to user_context_path(session_user_userName, @Article.id)
     else
       render "new"
     end
@@ -81,9 +81,9 @@ class ContextsController < ApplicationController
   def show
     @user = User.find_by_username(params[:user_id])
     @userName = @user.username
-    @article = Article.find_by_user_id_and_title(@user.id, params[:id])
-    @previous = Article.where("user_id = ? and id < ?", @user.id, @article.id).order(:id).first
-    @next = Article.where("user_id = ? and id > ?", @user.id, @article.id).order(:id).first
+    @article = Article.find_by_user_id_and_id(@user.id, params[:id])
+    @previous = Article.where("user_id = ? and id < ?", @user.id, params[:id]).order(:id).first
+    @next = Article.where("user_id = ? and id > ?", @user.id, params[:id]).order(:id).first
     #header_image
     @userInformation = UsersInformation.find_by_user_id(@user.id)
 
@@ -98,7 +98,7 @@ class ContextsController < ApplicationController
     else
       session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == @user.id
-        @article = Article.find_by_user_id_and_title(session[:user_id], params[:id])
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
         #header_image
         @userInformation = UsersInformation.find_by_user_id(@user.id)
         if @article.nil?
@@ -121,7 +121,7 @@ class ContextsController < ApplicationController
     else
       session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == @user.id
-        @article = Article.find_by_user_id_and_title(session[:user_id], params[:id])
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
         if @article.update(params.require(:article).permit(:title, :author, :tag, :image, :context))
           redirect_to user_context_path(params[:user_id], params[:id])
         else
@@ -142,7 +142,7 @@ class ContextsController < ApplicationController
     else
       session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == @user.id
-        @article = Article.find_by_user_id_and_title(session[:user_id], params[:id])
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
         @article.destroy if @article
         redirect_to user_contexts_path(session_user_userName)
       else
