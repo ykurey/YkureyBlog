@@ -58,6 +58,8 @@ class ContextsController < ApplicationController
       session_user_userName = User.find_by_id(session[:user_id]).username
       if session[:user_id] == @user.id
         @article = Article.new
+        #header_image
+        @userInformation = UsersInformation.find_by_user_id(@user.id)
       else
         #這篇違章不是你的
         redirect_to user_contexts_path(session_user_userName)
