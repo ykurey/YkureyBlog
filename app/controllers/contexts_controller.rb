@@ -72,7 +72,7 @@ class ContextsController < ApplicationController
     @Article.user_id = session[:user_id]
     if @Article.save
       session_user_userName = User.find_by_id(session[:user_id]).username
-      redirect_to user_context_path(session_user_userName, @Article.id)
+      redirect_to user_context_path(session_user_userName, @Article.slug)
     else
       render "new"
     end
