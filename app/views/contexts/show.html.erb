@@ -21,10 +21,22 @@
         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
       </div>
     </div>
+    <br>
+    <div class="row">
+      <div class="col-3">
+        <% if @previous != nil %>
+          <%= link_to "上一篇", user_context_path(params[:user_id], @previous.slug), :class => "btn btn-outline-info" %>
+        <% end %>
+      </div>
+      <div class="col-6">
+      </div>
+      <div class="col-3" style="text-align:right;">
+        <% if @next != nil %>
+          <%= link_to "下一篇", user_context_path(params[:user_id], @next.slug), :class => "btn btn-outline-info" %>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="col-xl-1 order-xl-2 mb-5 mb-xl-0" >
-    <%# if @next != nil %>
-      <%# link_to "下一頁", user_context_path(params[:user_id], @next.title) %>
-    <%# end %>
   </div>
 </div>

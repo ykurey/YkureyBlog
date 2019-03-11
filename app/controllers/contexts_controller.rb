@@ -83,8 +83,8 @@ class ContextsController < ApplicationController
     @userName = @user.username
     @article = Article.friendly.find_by_user_id_and_slug(@user.id ,params[:id])
     # @article = Article.find_by_user_id_and_id(@user.id, params[:id])
-    @previous = Article.where("user_id = ? and id < ?", @user.id, params[:id]).order(:id).first
-    @next = Article.where("user_id = ? and id > ?", @user.id, params[:id]).order(:id).first
+    @previous = Article.where("user_id = ? and id < ? ", @user.id, @article.id).order(:id).first
+    @next = Article.where("user_id = ? and id > ?", @user.id, @article.id).order(:id).first
     #header_image
     @userInformation = UsersInformation.find_by_user_id(@user.id)
 
