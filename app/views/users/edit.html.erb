@@ -111,6 +111,18 @@
                   <%= f.text_field :address, :class => "form-control form-control-alternative", :id => "input-address", :placeholder => "住址", :required => "required" %>
                 </div>
               </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-address">封面照片</label>
+                  <%= f.file_field :image, :class => "form-control form-control-alternative", :id => "input-image", :placeholder => "封面照片", :required => "required" %>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-address">個人照</label>
+                  <%= f.file_field :header_image, :class => "form-control form-control-alternative", :id => "input-header_image", :placeholder => "個人照", :required => "required" %>
+                </div>
+              </div>
             </div>
           </div>
           <hr class="my-4" />

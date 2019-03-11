@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def update
     puts params
     userInformation = UsersInformation.find_by_user_id(session[:user_id])
-    if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :about))
+    if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :image, :header_image, :about))
       reUser = User.find_by_id(session[:user_id]).username
       redirect_to edit_user_path(reUser)
     else
