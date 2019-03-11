@@ -135,6 +135,24 @@ class ContextsController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find_by_username(params[:user_id])
+    if session[:user_id].nil?
+      #未登入
+      redirect_to root_path
+    else
+      session_user_userName = User.find_by_id(session[:user_id]).username
+      if session[:user_id] == @user.id
+        @article = Article.find_by_user_id_and_id(session[:user_id], params[:id])
+        @article.destroy if @article
+        redirect_to user_contexts_path(session_user_userName)
+      else
+        #這篇違章不是你的
+        redirect_to user_contexts_path(session_user_userName)
+      end
+    end
+  end
+
   private
 
   def context_params
