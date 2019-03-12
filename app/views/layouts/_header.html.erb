@@ -1,6 +1,11 @@
 <style>
   #header_image {
-    background-image: url(<%= @userInformation.header_image %>);
+    background-image:
+    <% if @userInformation.header_image.present? %>
+      url(<%= @userInformation.header_image %>);
+    <% else %>
+      url(<%= "/desk.png" %>)
+    <% end %>
   }
 </style>
 

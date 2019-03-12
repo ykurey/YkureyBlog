@@ -22,6 +22,8 @@
             <span class="avatar avatar-sm rounded-circle">
               <% if @userInformation.image.present? %>
                 <%= image_tag @userInformation.image_url %>
+              <% else %>
+                <%= image_tag "penguin.jpg" %>
               <% end %>
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
