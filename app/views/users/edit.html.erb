@@ -7,6 +7,8 @@
             <!-- <a href="#"> -->
             <% if @userInformation.image.present? %>
               <%= image_tag @userInformation.image_url, :class => "rounded-circle" %>
+            <% else %>
+              <%= image_tag "penguin.jpg", :class => "rounded-circle" %>
             <% end %>
             <!-- </a> -->
           </div>
