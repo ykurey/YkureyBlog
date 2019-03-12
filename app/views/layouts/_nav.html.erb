@@ -92,10 +92,10 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <%= link_to user_path(@userName), :class => "nav-link" do %>
               <i class="far fa-gem"></i>
               關於我...
-            </a>
+            <% end %>
           </li>
           <li class="nav-item">
             <%= link_to user_contexts_path(@userName), :class => "nav-link" do %>

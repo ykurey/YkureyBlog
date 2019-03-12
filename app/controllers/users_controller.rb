@@ -46,6 +46,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find_by_username(params[:id])
+    @userName = @user.username
+    @userInformation = UsersInformation.find_by_user_id(@user.id)
   end
 
 
