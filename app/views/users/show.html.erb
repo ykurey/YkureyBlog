@@ -33,7 +33,7 @@
         </div>
         <div class="text-center">
           <h3>
-            <%= @userInformation.name %><span class="font-weight-light">, 17</span>
+            <%= @userInformation.name %><span class="font-weight-light">, <%= @userInformation.birthday %></span>
           </h3>
           <div class="h5 font-weight-300">
             <i class="ni location_pin mr-2"></i><%= @userInformation.email %>
@@ -45,7 +45,7 @@
             <i class="ni education_hat mr-2"></i>University of Computer Science
           </div>
           <hr class="my-4" />
-          <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+          <p><%= simple_format(@userInformation.about) %></p>
         </div>
       </div>
     </div>
