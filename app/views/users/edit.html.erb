@@ -5,7 +5,9 @@
         <div class="col-lg-3 order-lg-2">
           <div class="card-profile-image">
             <!-- <a href="#"> -->
+            <% if @userInformation.image.present? %>
               <%= image_tag @userInformation.image_url, :class => "rounded-circle" %>
+            <% end %>
             <!-- </a> -->
           </div>
         </div>
@@ -49,7 +51,11 @@
             <i class="ni education_hat mr-2"></i>University of Computer Science
           </div>
           <hr class="my-4" />
-          <p><%= (truncate(strip_tags(@userInformation.about), length: 100)).html_safe %></p>
+          <p>
+            <% if @userInformation.about.present? %>
+              <%= (truncate(strip_tags(@userInformation.about), length: 100)).html_safe %>
+            <% end %>
+          </p>
           <%= link_to "查看更多...", user_path(@userName) %>
         </div>
       </div>
