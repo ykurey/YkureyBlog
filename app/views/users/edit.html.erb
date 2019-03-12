@@ -56,6 +56,8 @@
           <p>
             <% if @userInformation.about.present? %>
               <%= (truncate(strip_tags(@userInformation.about), length: 100)).html_safe %>
+            <% else %>
+              <%= "這個人很懶，什麼東西都沒有留下..."%>
             <% end %>
           </p>
           <%= link_to "查看更多...", user_path(@userName) %>
