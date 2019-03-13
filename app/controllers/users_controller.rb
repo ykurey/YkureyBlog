@@ -38,28 +38,51 @@ class UsersController < ApplicationController
           @private_page_user = private_user
           @userInformation = UsersInformation.find_by_user_id(session[:user_id])
         else
-          reUser = private_user.username
-          redirect_to edit_user_path(reUser)
+          redirect_to edit_user_path(private_user.username)
         end
       end
     end
   end
 
   def update
-    puts params
-    userInformation = UsersInformation.find_by_user_id(session[:user_id])
-    if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :image, :header_image, :about))
-      reUser = User.find_by_id(session[:user_id]).username
-      redirect_to edit_user_path(reUser)
+    @public_page_user = nil
+    url_user = User.find_by_username(params[:id])
+    private_user = User.find_by_id(session[:user_id])
+    if session[:user_id].nil?
+      # 未登入
+      redirect_to root_path
     else
-      render :edit
+      if session[:user_id] == url_user.id
+        userInformation = UsersInformation.find_by_user_id(session[:user_id])
+        if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :image, :header_image, :about))
+          redirect_to edit_user_path(private_user.username)
+        else
+          render :edit
+        end
+      else
+        redirect_to edit_user_path(private_user.username)
+      end
     end
   end
 
   def show
-    @user = User.find_by_username(params[:id])
-    @userName = @user.username
-    @userInformation = UsersInformation.find_by_user_id(@user.id)
+    public_page_user = User.find_by_username(params[:id])
+    private_page_user = User.find_by_id(session[:user_id])
+    if session[:user_id].nil?
+      # 未登入
+      @public_page_user = public_page_user
+    else
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        @public_page_user = nil
+      end
+    end
+    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
   end
 
 
