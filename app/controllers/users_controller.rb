@@ -38,7 +38,7 @@ class UsersController < ApplicationController
           @private_page_user = private_user
           @userInformation = UsersInformation.find_by_user_id(session[:user_id])
         else
-          reUser = private_user.userName
+          reUser = private_user.username
           redirect_to edit_user_path(reUser)
         end
       end
