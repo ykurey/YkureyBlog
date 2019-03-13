@@ -91,57 +91,45 @@
             </div>
           </div>
         </form>
-        <!-- Navigation -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <%= link_to user_path(@userName), :class => "nav-link" do %>
-              <i class="far fa-gem"></i>
-              關於我...
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to user_contexts_path(@userName), :class => "nav-link" do %>
-              <i class="far fa-gem"></i>
-              文章總覽
-            <% end %>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">
-            <%# link_to article_setting_index_path, :class => "nav-link" do %>
-            <%#用do的話，前面就不是放名稱，直接往前一個格網址%>
-              <i class="far fa-gem"></i>
-              Articles
-            <%# end %>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="far fa-gem"></i>
-               Login
-            </a>
-          </li> -->
-        </ul>
-        <!-- Divider -->
+        <% if @public_page_user.present? %>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to user_path(@public_page_user.username), :class => "nav-link" do %>
+                <i class="far fa-gem"></i>
+                關於我...
+                <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_contexts_path(@public_page_user.username), :class => "nav-link" do %>
+                <i class="far fa-gem"></i>
+                文章總覽
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
         <% if current_user %>
           <hr class="my-3">
-          <!-- Heading -->
-          <h6 class="navbar-heading text-muted">編輯區</h6>
-          <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                <i class="far fa-gem"></i>
-                Getting started
-              </a>
-            </li> -->
             <li class="nav-item">
-                <%= link_to edit_user_path(@userName), :class => "nav-link" do %> <!--用do的話，前面就不是放名稱，直接往前一個格網址-->
+                <%= link_to user_path(@private_page_user.username), :class => "nav-link" do %> <!--用do的話，前面就不是放名稱，直接往前一個格網址-->
+                <i class="far fa-gem"></i>
+                關於我...
+                <% end %>
+            </li>
+            <li class="nav-item">
+                <%= link_to user_contexts_path(@private_page_user.username), :class => "nav-link" do %>
+                <i class="far fa-gem"></i>
+                文章總覽
+                <% end %>
+            </li>
+            <li class="nav-item">
+                <%= link_to edit_user_path(@private_page_user.username), :class => "nav-link" do %>
                 <i class="far fa-gem"></i>
                 編輯關於我
                 <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to new_user_context_path(@userName), :class => "nav-link" do %>
+              <%= link_to new_user_context_path(@private_page_user.username), :class => "nav-link" do %>
                 <i class="far fa-gem"></i>
                  新增文章
               <% end %>

@@ -2,6 +2,22 @@ class ContextsController < ApplicationController
   LIMIT_PAGE = 5
 
   def index
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
+    if session[:user_id].nil?
+      # 未登入
+      @public_page_user = public_page_user
+    else
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        @public_page_user = nil
+      end
+    end
     # puts "123"
     # puts session[:user_id].present?
     # puts "---"
@@ -20,135 +36,198 @@ class ContextsController < ApplicationController
     # @ppa = Article.where(:user_id => params[:user_id])
     # puts @ppa.first.title
 
-    @user = User.find_by_username(params[:user_id])
-    @userName = @user.username
-    @articles = Article.where(:user_id => @user.id )
+    # header_image
+    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
+    # 文章
+    @articles = Article.where(:user_id => public_page_user.id )
+    # 分頁
     @first_page = 1
     if(@articles.count % LIMIT_PAGE != 0)
       @last_page = ( @articles.count / LIMIT_PAGE ) + 1
     else
       @last_page = ( @articles.count / LIMIT_PAGE )
     end
-
     if params[:page]
       @page = params[:page].to_i
     else
       @page = 1
     end
-
-    #header_image
-    @userInformation = UsersInformation.find_by_user_id(@user.id)
-
-    @searchs = []
-    @articles.each do |article|
-      @searchs << [article.id, article.title]
-    end
-
-  #        限制筆數
+    # 限制筆數
     @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
+
+    #
+    # @searchs = []
+    # @articles.each do |article|
+    #   @searchs << [article.id, article.title]
+    # end
   end
 
   def new
-    @user = User.find_by_username(params[:user_id])
-    @userName = @user.username
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
     if session[:user_id].nil?
-      #未登入
+      # 未登入
       redirect_to root_path
     else
-      session_user_userName = User.find_by_id(session[:user_id]).username
-      if session[:user_id] == @user.id
-        @article = Article.new
-        #header_image
-        @userInformation = UsersInformation.find_by_user_id(@user.id)
-      else
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
         #這篇違章不是你的
-        redirect_to user_contexts_path(session_user_userName)
+        redirect_to new_user_context_path(private_page_user.username)
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        #header_image
+        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+        @public_page_user = nil
+        @article = Article.new
+      else
+        redirect_to new_user_context_path(private_page_user.username)
       end
     end
   end
 
   def create
-    @Article = Article.new(context_params)
-    @Article.user_id = session[:user_id]
-    if @Article.save
-      session_user_userName = User.find_by_id(session[:user_id]).username
-      redirect_to user_context_path(session_user_userName, @Article.slug)
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
+    if session[:user_id].nil?
+      # 未登入
+      redirect_to root_path
     else
-      render "new"
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+        #這篇違章不是你的
+        redirect_to user_contexts_path(private_page_user.username)
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        #header_image
+        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+        @public_page_user = nil
+        @Article = Article.new(context_params)
+        @Article.user_id = session[:user_id]
+        if @Article.save
+          redirect_to user_context_path(private_page_user.username, @Article.slug)
+        else
+          render "new"
+        end
+      else
+        redirect_to user_contexts_path(private_page_user.username)
+      end
     end
   end
 
   def show
-    @user = User.find_by_username(params[:user_id])
-    @userName = @user.username
-    @article = Article.friendly.find_by_user_id_and_slug(@user.id ,params[:id])
-    # @article = Article.find_by_user_id_and_id(@user.id, params[:id])
-    @previous = Article.where("user_id = ? and id < ? ", @user.id, @article.id).order(:id).first
-    @next = Article.where("user_id = ? and id > ?", @user.id, @article.id).order(:id).first
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
+    if session[:user_id].nil?
+      # 未登入
+      @public_page_user = public_page_user
+    else
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        @public_page_user = nil
+      else
+        redirect_to root_path
+      end
+    end
+    @article = Article.friendly.find_by_user_id_and_slug(public_page_user.id ,params[:id])
+    @previous = Article.where("user_id = ? and id < ? ", public_page_user.id, @article.id).order(:id).first
+    @next = Article.where("user_id = ? and id > ?", public_page_user.id, @article.id).order(:id).first
     #header_image
-    @userInformation = UsersInformation.find_by_user_id(@user.id)
+    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
 
   end
 
   def edit
-    @user = User.find_by_username(params[:user_id])
-    @userName = @user.username
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
     if session[:user_id].nil?
-      #未登入
+      # 未登入
       redirect_to root_path
     else
-      session_user_userName = User.find_by_id(session[:user_id]).username
-      if session[:user_id] == @user.id
-        @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+        #這篇違章不是你的
+        redirect_to user_contexts_path(private_page_user.username)
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
         #header_image
-        @userInformation = UsersInformation.find_by_user_id(@user.id)
+        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+        @public_page_user = nil
+        @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         if @article.nil?
           #你沒有這篇文章
-          redirect_to user_contexts_path(session_user_userName)
+          redirect_to user_contexts_path(private_page_user.username)
         end
       else
-        #這篇違章不是你的
-        redirect_to user_contexts_path(session_user_userName)
+        redirect_to user_contexts_path(private_page_user.username)
       end
     end
   end
 
   def update
-    @user = User.find_by_username(params[:user_id])
-    @userName = @user.username
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
     if session[:user_id].nil?
-      #未登入
+      # 未登入
       redirect_to root_path
     else
-      session_user_userName = User.find_by_id(session[:user_id]).username
-      if session[:user_id] == @user.id
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+        # 這篇文章不是你的
+        redirect_to user_contexts_path(private_page_user.username)
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         if @article.update(params.require(:article).permit(:title, :author, :tag, :image, :context))
-          redirect_to user_context_path(params[:user_id], params[:id])
+          redirect_to user_context_path(private_page_user.username, params[:id])
         else
           render :edit
         end
       else
-        #這篇違章不是你的
-        redirect_to user_contexts_path(session_user_userName)
+        redirect_to user_contexts_path(private_page_user.username)
       end
     end
   end
 
   def destroy
-    @user = User.find_by_username(params[:user_id])
+    public_page_user = User.find_by_username(params[:user_id])
+    private_page_user = User.find_by_id(session[:user_id])
     if session[:user_id].nil?
-      #未登入
+      # 未登入
       redirect_to root_path
     else
-      session_user_userName = User.find_by_id(session[:user_id]).username
-      if session[:user_id] == @user.id
+      # 已登入
+      @private_page_user = private_page_user
+      if public_page_user.id != session[:user_id]
+        # 登入訪問別人
+        @public_page_user = public_page_user
+        # 這篇文章不是你的
+        redirect_to user_contexts_path(private_page_user.username)
+      elsif public_page_user.id == session[:user_id]
+        # 登入訪問自己
+        @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         @article.destroy if @article
-        redirect_to user_contexts_path(session_user_userName)
+        redirect_to user_contexts_path(private_page_user.username)
       else
-        #這篇違章不是你的
-        redirect_to user_contexts_path(session_user_userName)
+        redirect_to user_contexts_path(private_page_user.username)
       end
     end
   end
@@ -157,6 +236,9 @@ class ContextsController < ApplicationController
 
   def context_params
       params.require(:article).permit(:title, :author, :tag, :image, :context )
+  end
+
+  def is_public_private
   end
 
 end
