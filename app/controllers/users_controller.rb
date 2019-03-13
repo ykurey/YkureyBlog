@@ -18,19 +18,29 @@ class UsersController < ApplicationController
   end
 
   def edit
-    userName = User.find_by_username(params[:id])
-    if userName.nil?
-      reUser = User.find_by_id(session[:user_id]).username
-      redirect_to edit_user_path(reUser)
-    else
-      if session[:user_id] == userName.id
-        @userName = params[:id];
-        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
-      elsif session[:user_id].nil?
+    @public_page_user = nil
+    url_user = User.find_by_username(params[:id])
+    private_user = User.find_by_id(session[:user_id])
+    if url_user.nil?
+      if session[:user_id].nil?
         redirect_to root_path
       else
-        reUser = User.find_by_id(session[:user_id]).userName
+        # 已登入
+        reUser = private_user.username
         redirect_to edit_user_path(reUser)
+      end
+    else
+      if session[:user_id].nil?
+        redirect_to root_path
+      else
+        # 已登入
+        if session[:user_id] == url_user.id
+          @private_page_user = private_user
+          @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+        else
+          reUser = private_user.userName
+          redirect_to edit_user_path(reUser)
+        end
       end
     end
   end
