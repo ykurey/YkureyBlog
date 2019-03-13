@@ -68,21 +68,26 @@ class UsersController < ApplicationController
   def show
     public_page_user = User.find_by_username(params[:id])
     private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
-      @public_page_user = public_page_user
+    if public_page_user.nil?
+      # 網址資料錯誤
+      redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
+      if session[:user_id].nil?
+        # 未登入
         @public_page_user = public_page_user
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        @public_page_user = nil
+      else
+        # 已登入
+        @private_page_user = private_page_user
+        if public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          @public_page_user = public_page_user
+        elsif public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          @public_page_user = nil
+        end
       end
+      @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
     end
-    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
   end
 
 

@@ -4,19 +4,42 @@ class ContextsController < ApplicationController
   def index
     public_page_user = User.find_by_username(params[:user_id])
     private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
-      @public_page_user = public_page_user
+    if public_page_user.nil?
+      # 網址資料錯誤
+      redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
+      if session[:user_id].nil?
+        # 未登入
         @public_page_user = public_page_user
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        @public_page_user = nil
+      else
+        # 已登入
+        @private_page_user = private_page_user
+        if public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          @public_page_user = public_page_user
+        elsif public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          @public_page_user = nil
+        end
       end
+      # header_image
+      @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
+      # 文章
+      @articles = Article.where(:user_id => public_page_user.id )
+      # 分頁
+      @first_page = 1
+      if(@articles.count % LIMIT_PAGE != 0)
+        @last_page = ( @articles.count / LIMIT_PAGE ) + 1
+      else
+        @last_page = ( @articles.count / LIMIT_PAGE )
+      end
+      if params[:page]
+        @page = params[:page].to_i
+      else
+        @page = 1
+      end
+      # 限制筆數
+      @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
     end
     # puts "123"
     # puts session[:user_id].present?
@@ -36,26 +59,6 @@ class ContextsController < ApplicationController
     # @ppa = Article.where(:user_id => params[:user_id])
     # puts @ppa.first.title
 
-    # header_image
-    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
-    # 文章
-    @articles = Article.where(:user_id => public_page_user.id )
-    # 分頁
-    @first_page = 1
-    if(@articles.count % LIMIT_PAGE != 0)
-      @last_page = ( @articles.count / LIMIT_PAGE ) + 1
-    else
-      @last_page = ( @articles.count / LIMIT_PAGE )
-    end
-    if params[:page]
-      @page = params[:page].to_i
-    else
-      @page = 1
-    end
-    # 限制筆數
-    @articles = @articles.offset( ((@page - 1) * LIMIT_PAGE) ).limit(LIMIT_PAGE)
-
-    #
     # @searchs = []
     # @articles.each do |article|
     #   @searchs << [article.id, article.title]
