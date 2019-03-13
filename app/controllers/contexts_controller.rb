@@ -140,7 +140,7 @@ class ContextsController < ApplicationController
       end
     end
     @article = Article.friendly.find_by_user_id_and_slug(public_page_user.id ,params[:id])
-    @previous = Article.where("user_id = ? and id < ? ", public_page_user.id, @article.id).order(:id).first
+    @previous = Article.where("user_id = ? and id < ? ", public_page_user.id, @article.id).order(:id).last
     @next = Article.where("user_id = ? and id > ?", public_page_user.id, @article.id).order(:id).first
     #header_image
     @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
