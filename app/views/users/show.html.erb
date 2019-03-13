@@ -51,7 +51,7 @@
         </div>
         <div class="text-center">
           <h2>
-            <%= @userInformation.name %>
+            <%= @userInformation.name if @userInformation.name.present? %>
           </h2>
           <div class="h5 font-weight-300">
             <i class="ni location_pin mr-2"></i>
@@ -63,7 +63,8 @@
             <i class="ni business_briefcase-24 mr-2"></i>學生
           </div> -->
           <div>
-            <i class="ni education_hat mr-2"></i>靜宜大學-資訊管理學系
+            <i class="ni education_hat mr-2"></i>
+            <%= @userInformation.school if @userInformation.school.present? %>
           </div>
           <hr class="my-4" />
           <p>

@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     else
       if session[:user_id] == url_user.id
         userInformation = UsersInformation.find_by_user_id(session[:user_id])
-        if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :phone, :address, :image, :header_image, :about))
+        if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :school, :github, :facebook, :twitter, :instagram, :image, :header_image, :about))
           redirect_to edit_user_path(private_user.username)
         else
           render :edit

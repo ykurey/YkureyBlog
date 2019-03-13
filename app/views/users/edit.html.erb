@@ -55,7 +55,7 @@
         </div>
         <div class="text-center">
           <h2>
-            <%= @userInformation.name %>
+            <%= @userInformation.name if @userInformation.name.present? %>
           </h2>
           <div class="h5 font-weight-300">
             <i class="ni location_pin mr-2"></i>
@@ -67,7 +67,8 @@
             <i class="ni business_briefcase-24 mr-2"></i>學生
           </div> -->
           <div>
-            <i class="ni education_hat mr-2"></i>靜宜大學-資訊管理學系
+            <i class="ni education_hat mr-2"></i>
+            <%= @userInformation.school if @userInformation.school.present? %>
           </div>
           <hr class="my-4" />
           <p>
@@ -101,8 +102,8 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-username">姓名</label>
-                  <%= f.text_field :name, :class => "form-control form-control-alternative", :id => "input-username", :placeholder => "姓名", :required => "required" %>
+                  <label class="form-control-label" for="input-name">姓名</label>
+                  <%= f.text_field :name, :class => "form-control form-control-alternative", :id => "input-name", :placeholder => "姓名", :required => "required" %>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -115,14 +116,14 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-first-name">生日</label>
-                  <%= f.text_field :birthday, :class => "form-control form-control-alternative", :placeholder => "生日", :required => "required" %>
+                  <label class="form-control-label" for="input-birthday">生日</label>
+                  <%= f.text_field :birthday, :class => "form-control form-control-alternative", :id => "input-birthday", :placeholder => "生日", :required => "required" %>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-last-name">校系</label>
-                  <%= f.text_field :phone, :class => "form-control form-control-alternative", :placeholder => "請輸入學系", :required => "required" %>
+                  <label class="form-control-label" for="input-school">校系</label>
+                  <%= f.text_field :school, :class => "form-control form-control-alternative", :id => "input-school",:placeholder => "請輸入學系", :required => "required" %>
                 </div>
               </div>
             </div>
@@ -134,26 +135,26 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-address">Facebook網址</label>
-                  <%= f.text_field :address, :class => "form-control form-control-alternative", :id => "input-Facebook", :placeholder => "請輸入Facebook網址" %>
+                  <label class="form-control-label" for="input-Facebook">Facebook網址</label>
+                  <%= f.text_field :facebook, :class => "form-control form-control-alternative", :id => "input-Facebook", :placeholder => "請輸入Facebook網址" %>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-address">GitHub網址</label>
-                  <%= f.text_field :address, :class => "form-control form-control-alternative", :id => "input-GitHub", :placeholder => "請輸入GitHub網址" %>
+                  <label class="form-control-label" for="input-GitHub">GitHub網址</label>
+                  <%= f.text_field :github, :class => "form-control form-control-alternative", :id => "input-GitHub", :placeholder => "請輸入GitHub網址" %>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-address">Twitter網址</label>
-                  <%= f.text_field :address, :class => "form-control form-control-alternative", :id => "input-Twitter", :placeholder => "請輸入Twitter網址" %>
+                  <label class="form-control-label" for="input-Twitter">Twitter網址</label>
+                  <%= f.text_field :twitter, :class => "form-control form-control-alternative", :id => "input-Twitter", :placeholder => "請輸入Twitter網址" %>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="form-control-label" for="input-address">Instagram網址</label>
-                  <%= f.text_field :address, :class => "form-control form-control-alternative", :id => "input-Instagram", :placeholder => "請輸入Instagram網址" %>
+                  <label class="form-control-label" for="input-Instagram">Instagram網址</label>
+                  <%= f.text_field :instagram, :class => "form-control form-control-alternative", :id => "input-Instagram", :placeholder => "請輸入Instagram網址" %>
                 </div>
               </div>
               <div class="col-md-12">
