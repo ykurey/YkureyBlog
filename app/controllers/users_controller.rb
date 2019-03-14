@@ -37,6 +37,7 @@ class UsersController < ApplicationController
         if session[:user_id] == url_user.id
           @private_page_user = private_user
           @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+          @article_size = Article.where(:user_id => session[:user_id] ).count
         else
           redirect_to edit_user_path(private_user.username)
         end
@@ -86,6 +87,7 @@ class UsersController < ApplicationController
           @public_page_user = nil
         end
       end
+      @article_size = Article.where(:user_id => public_page_user.id ).count
       @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
     end
   end

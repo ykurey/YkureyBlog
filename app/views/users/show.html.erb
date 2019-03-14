@@ -21,14 +21,18 @@
           <div class="col">
             <div class="card-profile-stats d-flex justify-content-center mt-md-5">
               <div>
-                <span class="heading">22</span>
+                <span class="heading"><%= @article_size %></span>
                 <span class="description">文章數</span>
               </div>
               <div>
-                <i class="far fa-3x fa-envelope"></i>
+                <%= mail_to @userInformation.email do %>
+                  <i class="far fa-3x fa-envelope"></i>
+                <% end %>
               </div>
               <div>
-                <i class="fab fa-3x fa-twitter"></i>
+                <%= link_to @userInformation.twitter, :target => "_blank" do %>
+                  <i class="fab fa-3x fa-twitter"></i>
+                <% end %>
               </div>
             </div>
           </div>
@@ -37,13 +41,19 @@
           <div class="col">
             <div class="card-profile-stats d-flex justify-content-center " style="margin-top:-30px">  <!--增加與上方距離 mt-md-5 -->
               <div>
-                <i class="fab fa-3x fa-github"></i>
+                <%= link_to @userInformation.github, :target => "_blank" do %>
+                  <i class="fab fa-3x fa-github"></i>
+                <% end %>
               </div>
               <div>
-                <i class="fab fa-3x fa-facebook-square"></i>
+                <%= link_to @userInformation.facebook, :target => "_blank" do %>
+                  <i class="fab fa-3x fa-facebook-square"></i>
+                <% end %>
               </div>
               <div>
-                <i class="fab fa-3x fa-instagram"></i>
+                <%= link_to @userInformation.instagram, :target => "_blank" do %>
+                  <i class="fab fa-3x fa-instagram"></i>
+                <% end %>
               </div>
 
             </div>
