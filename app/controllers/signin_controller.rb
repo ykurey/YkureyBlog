@@ -2,6 +2,7 @@ class SigninController < ApplicationController
   layout "log_in"
 
   def index
+    @page_title = "登入"
     if session[:user_id] != nil
       user_username = User.find_by_id(session[:user_id]).username
       redirect_to edit_user_path(user_username)
@@ -9,6 +10,7 @@ class SigninController < ApplicationController
   end
 
   def create
+    @page_title = "登入"
     user = User.authenticate(params[:username], params[:password])
     if user
       session[:user_id] = user.id

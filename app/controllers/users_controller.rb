@@ -4,9 +4,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @page_title = "註冊"
   end
 
   def create
+    @page_title = "註冊"
     @user = User.new(user_params)
     if @user.save
       UsersInformation.create(:email => @user.email, :user_id => @user.id)
