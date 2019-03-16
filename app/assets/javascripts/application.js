@@ -14,14 +14,21 @@
 //= require activestorage
 //= require turbolinks
 
+// Jquery 跟 bootstrap
 // require jquery3
 // require popper
 // require bootstrap
-
 // require jquery-ui
 
+// 套版包
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.bundle.min
 // require argon
+
+// ck編輯器
 //= require ckeditor/init
+
 //= require_tree .
+
+// sweetalert2
+//= require sweetalert2
