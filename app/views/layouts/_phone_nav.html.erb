@@ -33,29 +33,43 @@
         </a>
         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
           <div class=" dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome!</h6>
+            <h6 class="text-overflow m-0">歡迎!</h6>
           </div>
-          <a href="../examples/profile.html" class="dropdown-item">
-            <i class="ni ni-single-02"></i>
-            <span>My profile</span>
-          </a>
-          <a href="../examples/profile.html" class="dropdown-item">
-            <i class="ni ni-settings-gear-65"></i>
-            <span>Settings</span>
-          </a>
-          <a href="../examples/profile.html" class="dropdown-item">
-            <i class="ni ni-calendar-grid-58"></i>
-            <span>Activity</span>
-          </a>
-          <a href="../examples/profile.html" class="dropdown-item">
-            <i class="ni ni-support-16"></i>
-            <span>Support</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
-            <i class="ni ni-user-run"></i>
-            <span>Logout</span>
-          </a>
+          <% if @public_page_user.present? %>
+            <%= link_to user_path(@public_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>關於我...</span>
+            <% end %>
+            <%= link_to user_contexts_path(@public_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>文章總覽</span>
+            <% end %>
+          <% end %>
+          <% if current_user && @public_page_user %>
+            <div class="dropdown-divider"></div>
+          <% end %>
+          <% if current_user %>
+            <%= link_to user_path(@private_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>關於我...</span>
+            <% end %>
+            <%= link_to user_contexts_path(@private_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>文章總覽</span>
+            <% end %>
+            <%= link_to edit_user_path(@private_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>編輯關於我</span>
+            <% end %>
+            <%= link_to new_user_context_path(@private_page_user.username), :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              <span>新增文章</span>
+            <% end %>
+            <%= link_to sign_out_path, :class => "dropdown-item" do %>
+              <i class="far fa-gem"></i>
+              登出
+            <% end %>
+          <% end %>
         </div>
       </li>
     </ul>
