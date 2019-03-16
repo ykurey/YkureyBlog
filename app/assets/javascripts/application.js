@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+// require rails-ujs
 //= require activestorage
 //= require turbolinks
 
@@ -28,7 +28,9 @@
 // ck編輯器
 //= require ckeditor/init
 
-//= require_tree .
-
 // sweetalert2
 //= require sweetalert2
+//= require jquery_ujs
+//= require recover_sweetalert
+
+//= require_tree .
