@@ -6,7 +6,11 @@
       <div class="card" >
         <%= image_tag(article.image_url ,:class => "card-img-top") if article.image_url.present? %>
         <div class="card-body">
-          <h1 class="card-title display-2 text-black"><%= article.title %></h1>
+          <center>
+            <h1 class="card-title display-2 text-black">
+              <%= article.title %>
+            </h1>
+          </center>
           <p class="card-text" style="text-overflow: ellipsis">
             <%# truncate(article.context, length: 75)%>
             <%= (truncate(strip_tags(article.context), :length => 30, :omission => '...')).html_safe %>
