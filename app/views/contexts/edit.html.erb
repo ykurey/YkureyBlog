@@ -19,11 +19,11 @@
             </div>
             <label style="color:white; font-size:1em;">標籤</label>
             <div class="form-group">
-              <%= f.text_field :tag, :class => "form-control", :id => "tag", :placeholder => "請輸入標籤", :required => "required" %>
+              <%= f.text_field :tag, :class => "form-control", :id => "tag", :placeholder => "請輸入標籤" %>
             </div>
             <label style="color:white; font-size:1em;">日期</label>
             <div class="form-group">
-<!--                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="date">-->
+              <%= f.date_field :pentime, as: :date, value: f.object.try(:strftime,"%m/%d/%Y"), :class => "form-control" %>
             </div>
             <label style="color:white; font-size:1em;">圖片</label>
             <div class="form-group">

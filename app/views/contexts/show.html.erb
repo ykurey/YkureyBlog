@@ -4,21 +4,19 @@
   <div class="col-xl-10 order-xl-1" >
     <div class="card" >
       <%= image_tag @article.image_url if @article.image_url.present? %>
-      <%# image_tag "1.jpg", :class => "card-img-top"%>
       <div class="card-body">
         <center>
           <h1 class="display-1 text-black">
             <%= @article.title %>
           </h1>
+          <h5 class="card-title"><%= "#" + @article.tag %></h5>
+          <h5 class="card-title"><%= @article.pentime.to_formatted_s(:db) %></h5>
         </center>
-        <%= @article.tag %><br/>
-        <h5 class="card-title">Card title</h5>
         <p class="card-text">
           <%# h(@article.context).gsub("\n", "<br>").html_safe %>
           <%# simple_format(@article.context)%>
           <%= raw @article.context %>
         </p>
-        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
         <div id="disqus_thread"></div>
         <script>
             var disqus_config = function () {
@@ -31,7 +29,7 @@
         (d.head || d.body).appendChild(s);
         })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>                   
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
     </div>
     <br>
