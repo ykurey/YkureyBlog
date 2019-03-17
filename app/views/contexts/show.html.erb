@@ -9,7 +9,11 @@
           <h1 class="display-1 text-black">
             <%= @article.title %>
           </h1>
-          <h5 class="card-title"><%= "#" + @article.tag %></h5>
+          <h5 class="card-title">
+            <% if @article.tag.present? %>
+              <%= "#" + @article.tag %>
+            <% end %>
+          </h5>
           <h5 class="card-title">
             <%# @article.pentime.to_formatted_s(:db) %>
             <%# Time.zone.parse(@article.pentime.to_s) %>
