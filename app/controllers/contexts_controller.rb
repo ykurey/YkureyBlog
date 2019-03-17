@@ -112,6 +112,7 @@ class ContextsController < ApplicationController
         @userInformation = UsersInformation.find_by_user_id(session[:user_id])
         @public_page_user = nil
         @Article = Article.new(context_params)
+        @Article.pentime = Time.zone.now
         @Article.user_id = session[:user_id]
         if @Article.save
           redirect_to user_context_path(private_page_user.username, @Article.slug)
@@ -199,7 +200,7 @@ class ContextsController < ApplicationController
         # 登入訪問自己
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
-        if @article.update(params.require(:article).permit(:title, :author, :tag, :pentime, :image, :context))
+        if @article.update(context_params)
           redirect_to user_context_path(private_page_user.username, params[:id])
         else
           render :edit
@@ -239,7 +240,7 @@ class ContextsController < ApplicationController
   private
 
   def context_params
-      params.require(:article).permit(:title, :author, :tag, :pentime, :image, :context )
+      params.require(:article).permit(:title, :author, :tag, :image, :context )
   end
 
   def is_public_private

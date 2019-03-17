@@ -10,7 +10,11 @@
             <%= @article.title %>
           </h1>
           <h5 class="card-title"><%= "#" + @article.tag %></h5>
-          <h5 class="card-title"><%= @article.pentime.to_formatted_s(:db) %></h5>
+          <h5 class="card-title">
+            <%# @article.pentime.to_formatted_s(:db) %>
+            <%# Time.zone.parse(@article.pentime.to_s) %>
+            <%= Time.zone.parse(@article.pentime.to_s).strftime("%Y-%m-%d %H:%M:%S")%>
+          </h5>
         </center>
         <p class="card-text">
           <%# h(@article.context).gsub("\n", "<br>").html_safe %>

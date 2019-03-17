@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UsersInformation.create(:email => @user.email, :user_id => @user.id)
-      Article.create(:user_id => @user.id, :title => "歡迎～", :author => "admin", :pentime => Date.today, :context => "這是您的第一篇文章")
+      Article.create(:user_id => @user.id, :title => "歡迎～", :author => "admin", :pentime => Time.zone.now, :context => "這是您的第一篇文章")
       redirect_to root_url, :notice => "註冊成功"
     else
       render "new"
