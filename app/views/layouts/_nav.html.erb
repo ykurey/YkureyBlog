@@ -104,9 +104,15 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="../index.html">
-                <img src="">
-              </a>
+              <% if @public_page_user.present? %>
+                <%= link_to user_contexts_path(@public_page_user.username) do %>
+                  <%= image_tag "qwq.png", :class => "navbar-brand-img"%>
+                <% end %>
+              <% else %>
+                <%= link_to user_contexts_path(@private_page_user.username) do %>
+                  <%= image_tag "qwq.png", :class => "navbar-brand-img"%>
+                <% end %>
+              <% end %>
             </div>
             <div class="col-6 collapse-close">
               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
