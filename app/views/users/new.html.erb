@@ -1,5 +1,4 @@
 <%# form_for @user do |user| %>
-
   <!-- <p> -->
     <%# user.label :email %>
     <%# user.text_field :email %>
@@ -13,38 +12,37 @@
     <%# user.password_field :password_confirmation %>
   <!-- </p> -->
   <!-- <p class="button"><%# user.submit %></p> -->
-
 <%# end %>
 
 <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
-        <a class="navbar-brand" href="../index.html">
-          <%= image_tag "qwq.png" %>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse-main">
-          <!-- Collapse header -->
-          <div class="navbar-collapse-header d-md-none">
-            <div class="row">
-              <div class="col-6 collapse-brand">
-                <a href="../index.html">
-                  <%= image_tag "qwq.png" %>
-                </a>
-              </div>
-              <div class="col-6 collapse-close">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+    <div class="container px-4">
+      <a class="navbar-brand" href="../index.html">
+        <%= image_tag "qwq.png" %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <%= link_to root_path do %>
+                <%= image_tag "qwq.png" %>
+              <% end %>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
             </div>
           </div>
+        </div>
           <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
+          <!-- <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link nav-link-icon" href="../index.html">
                 <i class="ni ni-planet"></i>
@@ -69,131 +67,117 @@
                 <span class="nav-link-inner--text">Profile</span>
               </a>
             </li>
-          </ul>
-        </div>
+          </ul> -->
       </div>
-    </nav>
-    <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-7">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">歡 迎</h1>
-              <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
-            </div>
+    </div>
+  </nav>
+  <!-- Header -->
+  <div class="header bg-gradient-primary py-7 py-lg-8">
+    <div class="container">
+      <div class="header-body text-center mb-7">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-6">
+            <h1 class="text-white">歡 迎</h1>
+            <p class="text-lead text-light">這 裡 是 QAQ の Blog</p>
           </div>
         </div>
       </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
     </div>
-    <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
-              <div class="text-center">
-                <a href="#" class="btn btn-neutral btn-icon mr-4">
-                  <span class="btn-inner--icon"><i class="fab fa-github"></i></span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><i class="fab fa-google"></i></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container mt--8 pb-5">
+    <!-- Table -->
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card bg-secondary shadow border-0">
+          <div class="card-header bg-transparent pb-5">
+            <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
+            <div class="text-center">
+              <a href="#" class="btn btn-neutral btn-icon mr-4">
+                <span class="btn-inner--icon"><i class="fab fa-github"></i></span>
+                <span class="btn-inner--text">Github</span>
+              </a>
+              <a href="#" class="btn btn-neutral btn-icon">
+                <span class="btn-inner--icon"><i class="fab fa-google"></i></span>
+                <span class="btn-inner--text">Google</span>
+              </a>
             </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small><%= link_to "登入", sign_in_path %></small>
+          </div>
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-muted mb-4">
+              <small><%= link_to "登入", sign_in_path %></small>
+            </div>
+            <%= form_for @user, :html => {:role => "form"} do |user| %>
+              <div class="form-group">
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <%= user.text_field :username, :class => "form-control", :placeholder => "帳號" %>
+                  <!-- <input class="form-control" placeholder="Name" type="text"> -->
+                </div>
               </div>
-              <%= form_for @user, :html => {:role => "form"} do |user| %>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <%= user.text_field :username, :class => "form-control", :placeholder => "帳號" %>
-                    <!-- <input class="form-control" placeholder="Name" type="text"> -->
+              <div class="form-group">
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                   </div>
+                  <%= user.email_field :email, :class => "form-control", :placeholder => "E-mail" %>
                 </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    </div>
-                    <%= user.email_field :email, :class => "form-control", :placeholder => "E-mail" %>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
                   </div>
+                  <%= user.password_field :password, :class => "form-control", :placeholder => "密碼" %>
                 </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    </div>
-                    <%= user.password_field :password, :class => "form-control", :placeholder => "密碼" %>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
                   </div>
+                  <%= user.password_field :password_confirmation, :class => "form-control", :placeholder => "確認密碼" %>
                 </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    </div>
-                    <%= user.password_field :password_confirmation, :class => "form-control", :placeholder => "確認密碼" %>
-                  </div>
-                </div>
+              </div>
                 <!-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> -->
-                <div class="row my-4">
-                  <div class="col-12">
-                    <div class="custom-control custom-control-alternative custom-checkbox">
+              <div class="row my-4">
+                <div class="col-12">
+                    <!-- <div class="custom-control custom-control-alternative custom-checkbox">
                       <input class="custom-control-input" id="customCheckRegister" type="checkbox">
                       <label class="custom-control-label" for="customCheckRegister">
                         <span class="text-muted">我同意 <a href="#!">Privacy Policy</a></span>
                       </label>
-                    </div>
-                  </div>
+                    </div> -->
                 </div>
-                <div class="text-center">
-                  <%= user.submit "Create account" , :class => "btn btn-primary mt-4" %>
-                </div>
-              <% end %>
-            </div>
+              </div>
+              <div class="text-center">
+                <%= user.submit "Create account" , :class => "btn btn-primary mt-4" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- Footer -->
-  <footer class="py-5">
-    <div class="container">
-      <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-          <div class="copyright text-center text-xl-left text-muted">
-            &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-          </ul>
+</div>
+<!-- Footer -->
+<footer class="py-5">
+  <div class="container">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-12">
+        <div class="col-xl-12 text-muted" style="font-size: 1em; padding-top:40px;">
+          <center>
+            Copyrights © 2018 Alan. All Rights Reserved.
+          </center>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
