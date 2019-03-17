@@ -24,6 +24,7 @@ class ContextsController < ApplicationController
       end
       # header_image
       @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
+      @page_title = @userInformation.name
       # 文章
       @articles = Article.where(:user_id => public_page_user.id )
       # 分頁

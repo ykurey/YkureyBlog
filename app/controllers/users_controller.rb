@@ -91,6 +91,7 @@ class UsersController < ApplicationController
       end
       @article_size = Article.where(:user_id => public_page_user.id ).count
       @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
+      @page_title = @userInformation.name
     end
   end
 

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= @page_title || "QAQ のBlog" %></title>
+    <% if @page_title.present? %>
+      <title><%= @page_title + "のBlog" %></title>
+    <% else %>
+      <title><%= "QAQ のBlog" %></title>
+    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
