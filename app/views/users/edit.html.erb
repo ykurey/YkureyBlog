@@ -29,13 +29,21 @@
                 <span class="description">文章</span>
               </div>
               <div>
-                <%= mail_to @userInformation.email do %>
-                  <i class="far fa-3x fa-envelope"></i>
+                <% if @userInformation.email.blank? %>
+                  <i class="far fa-3x fa-envelope blank_email"></i>
+                <% else %>
+                  <%= mail_to @userInformation.email do %>
+                    <i class="far fa-3x fa-envelope"></i>
+                  <% end %>
                 <% end %>
               </div>
               <div>
-                <%= link_to @userInformation.twitter, :target => "_blank" do %>
-                  <i class="fab fa-3x fa-twitter"></i>
+                <% if @userInformation.twitter.blank? %>
+                  <i class="fab fa-3x fa-twitter blank_twitter"></i>
+                <% else %>
+                  <%= link_to @userInformation.twitter, :target => "_blank" do %>
+                    <i class="fab fa-3x fa-twitter"></i>
+                  <% end %>
                 <% end %>
               </div>
             </div>
@@ -45,21 +53,32 @@
           <div class="col">
             <div class="card-profile-stats d-flex justify-content-center " style="margin-top:-30px">  <!--增加與上方距離 mt-md-5 -->
               <div>
-                <%= link_to @userInformation.github, :target => "_blank" do %>
-                  <i class="fab fa-3x fa-github"></i>
+                <% if @userInformation.github.blank? %>
+                  <i class="fab fa-3x fa-github blank_github"></i>
+                <% else %>
+                  <%= link_to @userInformation.github, :target => "_blank" do %>
+                    <i class="fab fa-3x fa-github"></i>
+                  <% end %>
                 <% end %>
               </div>
               <div>
-                <%= link_to @userInformation.facebook, :target => "_blank" do %>
-                  <i class="fab fa-3x fa-facebook-square"></i>
+                <% if @userInformation.facebook.blank? %>
+                  <i class="fab fa-3x fa-facebook blank_facebook"></i>
+                <% else %>
+                  <%= link_to @userInformation.facebook, :target => "_blank" do %>
+                    <i class="fab fa-3x fa-facebook-square"></i>
+                  <% end %>
                 <% end %>
               </div>
               <div>
-                <%= link_to @userInformation.instagram, :target => "_blank" do %>
-                  <i class="fab fa-3x fa-instagram"></i>
+                <% if @userInformation.instagram.blank? %>
+                  <i class="fab fa-3x fa-instagram blank_instagram"></i>
+                <% else %>
+                  <%= link_to @userInformation.instagram, :target => "_blank" do %>
+                    <i class="fab fa-3x fa-instagram"></i>
+                  <% end %>
                 <% end %>
               </div>
-
             </div>
           </div>
         </div>
