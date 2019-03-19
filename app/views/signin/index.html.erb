@@ -106,7 +106,13 @@
           </div>
           <div class="card-body px-lg-5 py-lg-5">
             <div class="text-center text-muted mb-4">
-              <small><%= link_to "註冊", new_user_path %></small>
+              <small><%= link_to "註冊", new_user_path %></small><br>
+              <script>
+                <% if flash[:alert].present? %>
+                  swal ( "噢..不..." , "帳號或密碼錯誤",  "error" )
+                <% end %>
+              </script>
+              <small><%= flash[:alert] %></small>
             </div>
             <%= form_tag sign_in_url, :role => "form" do %>
               <div class="form-group mb-3">
