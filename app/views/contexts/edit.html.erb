@@ -5,6 +5,11 @@
         <h3 class="text-white mb-0">Edit Context</h3>
       </div>
       <%= form_with model: @article, url: user_context_path do |f| %>
+        <script>
+          <% if flash[:alert].present? %>
+            swal ( "噢..不..." , "<%= flash[:alert] %>",  "error" )
+          <% end %>
+        </script>
         <div class="row">
           <div class="col-md-2">
           </div>

@@ -117,6 +117,7 @@ class ContextsController < ApplicationController
         if @Article.save
           redirect_to user_context_path(private_page_user.username, @Article.slug)
         else
+          flash.now.alert = "新增失敗"
           render "new"
         end
       else
@@ -203,6 +204,7 @@ class ContextsController < ApplicationController
         if @article.update(context_params)
           redirect_to user_context_path(private_page_user.username, params[:id])
         else
+          flash.now.alert = "修改失敗"
           render :edit
         end
       else
@@ -230,7 +232,7 @@ class ContextsController < ApplicationController
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         @article.destroy if @article
-        redirect_to user_contexts_path(private_page_user.username)
+        redirect_to user_contexts_path(private_page_user.username), :notice => "刪除成功"
       else
         redirect_to user_contexts_path(private_page_user.username)
       end
