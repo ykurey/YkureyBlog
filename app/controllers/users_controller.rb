@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       Article.create(:user_id => @user.id, :title => "歡迎～", :author => "admin", :tag => "你的第一篇", :pentime => Time.zone.now, :context => "這是您的第一篇文章")
       redirect_to root_url, :notice => "註冊成功"
     else
+      flash.now.alert = "註冊失敗"
       render "new"
     end
   end

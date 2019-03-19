@@ -111,6 +111,9 @@
                 <% if flash[:alert].present? %>
                   swal ( "噢..不..." , "帳號或密碼錯誤",  "error" )
                 <% end %>
+                <% if flash[:notice].present? %>
+                  swal ( "YA~" , "註冊成功",  "success" )
+                <% end %>
               </script>
               <small><%= flash[:alert] %></small>
             </div>
