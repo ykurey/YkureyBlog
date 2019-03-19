@@ -17,3 +17,7 @@ $(".blank_instagram").click(function(){
 $(".blank_email").click(function(){
   Swal.fire("這個作者很懶，沒有留下e-mail...")
 });
+
+$(".blank_password").click(function(){
+  Swal.fire("恩...，請聯絡我")
+});
