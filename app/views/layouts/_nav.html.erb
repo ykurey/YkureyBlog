@@ -22,25 +22,35 @@
             <i class="far fa-gem"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-            <%= link_to @userInformation.github, :class => "dropdown-item", :target => "_blank" do %>
-              <i class="fab fa-github"></i>
-              GitHub
+            <% if @userInformation.github.present? %>
+              <%= link_to @userInformation.github, :class => "dropdown-item", :target => "_blank" do %>
+                <i class="fab fa-github"></i>
+                GitHub
+              <% end %>
             <% end %>
-            <%= link_to @userInformation.facebook, :class => "dropdown-item", :target => "_blank" do %>
-              <i class="fab fa-facebook-square"></i>
-              Facebook
+            <% if @userInformation.facebook.present? %>
+              <%= link_to @userInformation.facebook, :class => "dropdown-item", :target => "_blank" do %>
+                <i class="fab fa-facebook-square"></i>
+                Facebook
+              <% end %>
             <% end %>
-            <%= link_to @userInformation.instagram, :class => "dropdown-item", :target => "_blank" do %>
-              <i class="fab fa-instagram"></i>
-              Instagram
+            <% if @userInformation.instagram.present? %>
+              <%= link_to @userInformation.instagram, :class => "dropdown-item", :target => "_blank" do %>
+                <i class="fab fa-instagram"></i>
+                Instagram
+              <% end %>
             <% end %>
-            <%= link_to @userInformation.twitter, :class => "dropdown-item", :target => "_blank" do %>
-              <i class="fab fa-twitter"></i>
-              Twitter
+            <% if @userInformation.twitter.present? %>
+              <%= link_to @userInformation.twitter, :class => "dropdown-item", :target => "_blank" do %>
+                <i class="fab fa-twitter"></i>
+                Twitter
+              <% end %>
             <% end %>
-            <%= mail_to @userInformation.email, :class => "dropdown-item" do %>
-              <i class="far fa-envelope"></i>
-              E-mail
+            <% if @userInformation.email.present? %>
+              <%= mail_to @userInformation.email, :class => "dropdown-item" do %>
+                <i class="far fa-envelope"></i>
+                E-mail
+              <% end %>
             <% end %>
           </div>
         </li>
