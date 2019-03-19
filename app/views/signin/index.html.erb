@@ -109,10 +109,10 @@
               <small><%= link_to "註冊", new_user_path %></small><br>
               <script>
                 <% if flash[:alert].present? %>
-                  swal ( "噢..不..." , "帳號或密碼錯誤",  "error" )
+                  swal ( "噢..不..." , "<%= flash[:alert] %>",  "error" )
                 <% end %>
                 <% if flash[:notice].present? %>
-                  swal ( "YA~" , "註冊成功",  "success" )
+                  swal ( "YA~" , "<%= flash[:notice] %>",  "success" )
                 <% end %>
               </script>
               <small><%= flash[:alert] %></small>

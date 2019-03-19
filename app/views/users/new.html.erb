@@ -113,7 +113,7 @@
               <small><%= link_to "登入", sign_in_path %></small><br>
               <script>
                 <% if flash[:alert].present? %>
-                  swal ( "噢..不..." , "註冊失敗",  "error" )
+                  swal ( "噢..不..." , "<%= flash[:alert] %>",  "error" )
                 <% end %>
               </script>
               <small><%= flash[:alert] %></small>
