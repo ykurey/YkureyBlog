@@ -2,6 +2,11 @@
   <div class="col-xl-2 order-xl-1" >
   </div>
   <div class="col-xl-8 order-xl-1" >
+    <script>
+      <% if flash[:notice].present? %>
+        swal ( "YA~" , "<%= flash[:notice] %>",  "success" )
+      <% end %>
+    </script>
     <% @articles.each do |article| %>
       <div class="card" >
         <%= image_tag(article.image_url ,:class => "card-img-top") if article.image_url.present? %>
@@ -19,11 +24,6 @@
           <%= link_to "繼 續 閱 讀 ...", user_context_path(params[:user_id] ,article.slug), :class => "btn btn-info btn-sm btn-block" %>
           <br>
           <% if current_user %>
-            <script>
-              <% if flash[:notice].present? %>
-                swal ( "YA~" , "<%= flash[:notice] %>",  "success" )
-              <% end %>
-            </script>
             <% if session[:user_id] == @userInformation.user_id %>
               <%= link_to "編 輯", edit_user_context_path(params[:user_id], article.slug), :class => "btn btn-success btn-sm" %>
               <%= link_to "刪 除", user_context_path(params[:user_id], article.slug), :method => "delete", :class => "btn btn-danger btn-sm", data: { confirm: "你確定要刪除?" } %>
