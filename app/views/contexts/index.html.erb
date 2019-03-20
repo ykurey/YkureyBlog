@@ -24,7 +24,7 @@
                 swal ( "YA~" , "<%= flash[:notice] %>",  "success" )
               <% end %>
             </script>
-            <% if session[:user_id] == @private_page_user.id %>
+            <% if session[:user_id] == @userInformation.user_id %>
               <%= link_to "編 輯", edit_user_context_path(params[:user_id], article.slug), :class => "btn btn-success btn-sm" %>
               <%= link_to "刪 除", user_context_path(params[:user_id], article.slug), :method => "delete", :class => "btn btn-danger btn-sm", data: { confirm: "你確定要刪除?" } %>
             <% end %>
