@@ -185,12 +185,10 @@ class ContextsController < ApplicationController
       redirect_to root_path
     else
       # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
+      if @public_page_user.id != session[:user_id]
         # 登入訪問別人
-        @public_page_user = public_page_user
         # 這篇文章不是你的
-        redirect_to user_contexts_path(private_page_user.username)
+        redirect_to root_path
       elsif @public_page_user.id == session[:user_id]
         # 登入訪問自己
         @public_page_user = nil
@@ -220,7 +218,7 @@ class ContextsController < ApplicationController
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         @article.destroy if @article
-        redirect_to user_contexts_path(private_page_user.username), :notice => "刪除成功"
+        redirect_to user_contexts_path(@private_page_user.username), :notice => "刪除成功"
       end
     end
   end
