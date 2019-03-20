@@ -191,31 +191,15 @@ class ContextsController < ApplicationController
         @public_page_user = public_page_user
         # 這篇文章不是你的
         redirect_to user_contexts_path(private_page_user.username)
-      elsif public_page_user.id == session[:user_id]
+      elsif @public_page_user.id == session[:user_id]
         # 登入訪問自己
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         if @article.update(context_params)
-          redirect_to user_context_path(private_page_user.username, params[:id])
+          redirect_to user_context_path(@private_page_user.username, params[:id])
         else
           flash.now.alert = "修改失敗"
           render :edit
-        end
-      else
-        # 已登入
-        if @public_page_user.id != session[:user_id]
-          # 登入訪問別人
-          # 這篇文章不是你的
-          redirect_to root_path
-        elsif @public_page_user.id == session[:user_id]
-          # 登入訪問自己
-          @public_page_user = nil
-          @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
-          if @article.update(context_params)
-            redirect_to user_context_path(@private_page_user.username, params[:id])
-          else
-            render :edit
-          end
         end
       end
     end
@@ -227,31 +211,16 @@ class ContextsController < ApplicationController
       redirect_to root_path
     else
       # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
+      if @public_page_user.id != session[:user_id]
         # 登入訪問別人
-        @public_page_user = public_page_user
         # 這篇文章不是你的
-        redirect_to user_contexts_path(private_page_user.username)
-      elsif public_page_user.id == session[:user_id]
+        redirect_to root_path
+      elsif @public_page_user.id == session[:user_id]
         # 登入訪問自己
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         @article.destroy if @article
         redirect_to user_contexts_path(private_page_user.username), :notice => "刪除成功"
-      else
-        # 已登入
-        if @public_page_user.id != session[:user_id]
-          # 登入訪問別人
-          # 這篇文章不是你的
-          redirect_to root_path
-        elsif @public_page_user.id == session[:user_id]
-          # 登入訪問自己
-          @public_page_user = nil
-          @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
-          @article.destroy if @article
-          redirect_to user_contexts_path(@private_page_user.username)
-        end
       end
     end
   end
