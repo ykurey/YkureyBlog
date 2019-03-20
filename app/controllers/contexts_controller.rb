@@ -1,32 +1,28 @@
 class ContextsController < ApplicationController
+  before_action :is_public_private, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   LIMIT_PAGE = 5
 
   def index
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if public_page_user.nil?
+    if @public_page_user.nil?
       # 網址資料錯誤
       redirect_to root_path
     else
+      # header_image
+      @userInformation = UsersInformation.find_by_user_id(@public_page_user.id)
+      @page_title = @userInformation.name
+      # 文章
+      @articles = Article.where(:user_id => @public_page_user.id )
       if session[:user_id].nil?
         # 未登入
-        @public_page_user = public_page_user
       else
         # 已登入
-        @private_page_user = private_page_user
-        if public_page_user.id != session[:user_id]
+        if @public_page_user.id != session[:user_id]
           # 登入訪問別人
-          @public_page_user = public_page_user
-        elsif public_page_user.id == session[:user_id]
+        elsif @public_page_user.id == session[:user_id]
           # 登入訪問自己
           @public_page_user = nil
         end
       end
-      # header_image
-      @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
-      @page_title = @userInformation.name
-      # 文章
-      @articles = Article.where(:user_id => public_page_user.id )
       # 分頁
       @first_page = 1
       if(@articles.count % LIMIT_PAGE != 0)
@@ -67,127 +63,125 @@ class ContextsController < ApplicationController
   end
 
   def new
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
+    if @public_page_user.nil?
+      # 網址資料錯誤
       redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
-        @public_page_user = public_page_user
-        #這篇違章不是你的
-        redirect_to new_user_context_path(private_page_user.username)
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        #header_image
-        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
-        @public_page_user = nil
-        @article = Article.new
+      if session[:user_id].nil?
+        # 未登入
+        redirect_to root_path
       else
-        redirect_to new_user_context_path(private_page_user.username)
+        # 已登入
+        if @public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          #這篇違章不是你的
+          redirect_to root_path
+        elsif @public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          #header_image
+          @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+          @public_page_user = nil
+          @article = Article.new
+        else
+          redirect_to root_path
+        end
       end
     end
   end
 
   def create
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
+    if @public_page_user.nil?
+      # 網址資料錯誤
       redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
-        @public_page_user = public_page_user
-        #這篇違章不是你的
-        redirect_to user_contexts_path(private_page_user.username)
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        #header_image
-        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
-        @public_page_user = nil
-        @Article = Article.new(context_params)
-        @Article.pentime = Time.zone.now
-        @Article.user_id = session[:user_id]
-        if @Article.save
-          redirect_to user_context_path(private_page_user.username, @Article.slug)
-        else
-          flash.now.alert = "新增失敗"
-          render "new"
-        end
+      if session[:user_id].nil?
+        # 未登入
+        redirect_to root_path
       else
-        redirect_to user_contexts_path(private_page_user.username)
+        # 已登入
+        if @public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          #這篇文章不是你的
+          redirect_to root_path
+        elsif @public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          #header_image
+          @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+          @public_page_user = nil
+          @Article = Article.new(context_params)
+          @Article.pentime = Time.zone.now
+          @Article.user_id = session[:user_id]
+          if @Article.save
+            redirect_to user_context_path(@private_page_user.username, @Article.slug)
+          else
+            flash.now.alert = "新增失敗"
+            render "new"
+          end
+        end
       end
     end
   end
 
   def show
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
-      @public_page_user = public_page_user
+    if @public_page_user.nil?
+      # 網址資料錯誤
+      redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
-        @public_page_user = public_page_user
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        @public_page_user = nil
-      else
+      #header_image
+      @userInformation = UsersInformation.find_by_user_id(@public_page_user.id)
+      @article = Article.friendly.find_by_user_id_and_slug(@public_page_user.id ,params[:id])
+      if @article.nil?
         redirect_to root_path
+      else
+        @previous = Article.where("user_id = ? and id < ? ", @public_page_user.id, @article.id).order(:id).last
+        @next = Article.where("user_id = ? and id > ?", @public_page_user.id, @article.id).order(:id).first
+        if session[:user_id].nil?
+          # 未登入
+        else
+          # 已登入
+          if @public_page_user.id != session[:user_id]
+            # 登入訪問別人
+          elsif @public_page_user.id == session[:user_id]
+            # 登入訪問自己
+            @public_page_user = nil
+          end
+        end
       end
     end
-    @article = Article.friendly.find_by_user_id_and_slug(public_page_user.id ,params[:id])
-    @previous = Article.where("user_id = ? and id < ? ", public_page_user.id, @article.id).order(:id).last
-    @next = Article.where("user_id = ? and id > ?", public_page_user.id, @article.id).order(:id).first
-    #header_image
-    @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
-
   end
 
   def edit
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
+    if @public_page_user.nil?
+      # 網址資料錯誤
       redirect_to root_path
     else
-      # 已登入
-      @private_page_user = private_page_user
-      if public_page_user.id != session[:user_id]
-        # 登入訪問別人
-        @public_page_user = public_page_user
-        #這篇違章不是你的
-        redirect_to user_contexts_path(private_page_user.username)
-      elsif public_page_user.id == session[:user_id]
-        # 登入訪問自己
-        #header_image
-        @userInformation = UsersInformation.find_by_user_id(session[:user_id])
-        @public_page_user = nil
-        @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
-        if @article.nil?
-          #你沒有這篇文章
-          redirect_to user_contexts_path(private_page_user.username)
-        end
+      if session[:user_id].nil?
+        # 未登入
+        redirect_to root_path
       else
-        redirect_to user_contexts_path(private_page_user.username)
+        # 已登入
+        if @public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          #這篇違章不是你的
+          redirect_to root_path
+        elsif @public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          #header_image
+          @userInformation = UsersInformation.find_by_user_id(session[:user_id])
+          @public_page_user = nil
+          @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
+          if @article.nil?
+            #你沒有這篇文章
+            redirect_to root_path
+          end
+        end
       end
     end
   end
 
   def update
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
+    if @public_page_user.nil?
+      # 網址資料錯誤
       redirect_to root_path
     else
       # 已登入
@@ -208,16 +202,28 @@ class ContextsController < ApplicationController
           render :edit
         end
       else
-        redirect_to user_contexts_path(private_page_user.username)
+        # 已登入
+        if @public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          # 這篇文章不是你的
+          redirect_to root_path
+        elsif @public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          @public_page_user = nil
+          @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
+          if @article.update(context_params)
+            redirect_to user_context_path(@private_page_user.username, params[:id])
+          else
+            render :edit
+          end
+        end
       end
     end
   end
 
   def destroy
-    public_page_user = User.find_by_username(params[:user_id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
+    if @public_page_user.nil?
+      # 網址資料錯誤
       redirect_to root_path
     else
       # 已登入
@@ -234,18 +240,30 @@ class ContextsController < ApplicationController
         @article.destroy if @article
         redirect_to user_contexts_path(private_page_user.username), :notice => "刪除成功"
       else
-        redirect_to user_contexts_path(private_page_user.username)
+        # 已登入
+        if @public_page_user.id != session[:user_id]
+          # 登入訪問別人
+          # 這篇文章不是你的
+          redirect_to root_path
+        elsif @public_page_user.id == session[:user_id]
+          # 登入訪問自己
+          @public_page_user = nil
+          @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
+          @article.destroy if @article
+          redirect_to user_contexts_path(@private_page_user.username)
+        end
       end
     end
   end
 
   private
-
   def context_params
       params.require(:article).permit(:title, :author, :tag, :image, :context )
   end
 
   def is_public_private
+    @public_page_user = User.find_by_username(params[:user_id])
+    @private_page_user = User.find_by_id(session[:user_id])
   end
 
 end
