@@ -10,4 +10,8 @@ class Article < ApplicationRecord
     input.to_s.to_slug.normalize.to_s
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || title_changed?
+  end
+
 end
