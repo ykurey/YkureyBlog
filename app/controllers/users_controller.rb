@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  before_action :is_public_private, only: [:edit, :update, :show]
   layout "log_in", :only => [:new, :create]
 
   def new
@@ -21,78 +21,68 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @public_page_user = nil
-    url_user = User.find_by_username(params[:id])
-    private_user = User.find_by_id(session[:user_id])
-    if url_user.nil?
-      if session[:user_id].nil?
-        redirect_to root_path
-      else
-        # 已登入
-        reUser = private_user.username
-        redirect_to edit_user_path(reUser)
-      end
+    if @public_page_user.nil?
+      # 網址資料錯誤
+      redirect_to root_path
     else
       if session[:user_id].nil?
+        # 未登入
         redirect_to root_path
       else
         # 已登入
-        if session[:user_id] == url_user.id
-          @private_page_user = private_user
+        if session[:user_id] == @public_page_user.id
+          @public_page_user = nil
           @userInformation = UsersInformation.find_by_user_id(session[:user_id])
           @article_size = Article.where(:user_id => session[:user_id] ).count
         else
-          redirect_to edit_user_path(private_user.username)
+          redirect_to edit_user_path(@private_page_user.username)
         end
       end
     end
   end
 
   def update
-    @public_page_user = nil
-    url_user = User.find_by_username(params[:id])
-    private_user = User.find_by_id(session[:user_id])
-    if session[:user_id].nil?
-      # 未登入
-      redirect_to root_path
-    else
-      if session[:user_id] == url_user.id
-        userInformation = UsersInformation.find_by_user_id(session[:user_id])
-        if userInformation.update(params.require(:users_information).permit(:name, :email, :birthday, :school, :github, :facebook, :twitter, :instagram, :image, :header_image, :about))
-          redirect_to edit_user_path(private_user.username)
-        else
-          render :edit
-        end
-      else
-        redirect_to edit_user_path(private_user.username)
-      end
-    end
-  end
-
-  def show
-    public_page_user = User.find_by_username(params[:id])
-    private_page_user = User.find_by_id(session[:user_id])
-    if public_page_user.nil?
+    if @public_page_user.nil?
       # 網址資料錯誤
       redirect_to root_path
     else
       if session[:user_id].nil?
         # 未登入
-        @public_page_user = public_page_user
+        redirect_to root_path
+      else
+        if session[:user_id] == @public_page_user.id
+          @public_page_user = nil
+          userInformation = UsersInformation.find_by_user_id(session[:user_id])
+          if userInformation.update(users_informations_params)
+            redirect_to edit_user_path(@private_user.username)
+          else
+            render :edit
+          end
+        else
+          redirect_to edit_user_path(@private_user.username)
+        end
+      end
+    end
+  end
+
+  def show
+    if @public_page_user.nil?
+      # 網址資料錯誤
+      redirect_to root_path
+    else
+      @article_size = Article.where(:user_id => @public_page_user.id ).count
+      @userInformation = UsersInformation.find_by_user_id(@public_page_user.id)
+      if session[:user_id].nil?
+        # 未登入
       else
         # 已登入
-        @private_page_user = private_page_user
-        if public_page_user.id != session[:user_id]
+        if @public_page_user.id != session[:user_id]
           # 登入訪問別人
-          @public_page_user = public_page_user
-        elsif public_page_user.id == session[:user_id]
+        elsif @public_page_user.id == session[:user_id]
           # 登入訪問自己
           @public_page_user = nil
         end
       end
-      @article_size = Article.where(:user_id => public_page_user.id ).count
-      @userInformation = UsersInformation.find_by_user_id(public_page_user.id)
-      ##todo 尚未寫姓名
       @page_title = @userInformation.name
     end
   end
@@ -102,5 +92,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
+
+  def users_informations_params
+    params.require(:users_information).permit(:name, :email, :birthday, :school, :github, :facebook, :twitter, :instagram, :image, :header_image, :about)
+  end
+
+  def is_public_private
+    @public_page_user = User.find_by_username(params[:id])
+    @private_page_user = User.find_by_id(session[:user_id])
   end
 end
