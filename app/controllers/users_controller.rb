@@ -101,5 +101,10 @@ class UsersController < ApplicationController
   def is_public_private
     @public_page_user = User.find_by_username(params[:id])
     @private_page_user = User.find_by_id(session[:user_id])
+    if @public_page_user.present?
+      @common＿lock = @public_page_user
+    else
+      @common＿lock = @private_page_user
+    end
   end
 end

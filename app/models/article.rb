@@ -14,11 +14,15 @@ class Article < ApplicationRecord
     slug.blank? || title_changed?
   end
 
-  def self.back_page(date,date1,date2)
+  def self.search_title(date, date1)
+    where("user_id = ? and title Like ?", date, date1)
+  end
+
+  def self.back_page(date, date1, date2)
     where("user_id = ? and id < ? ", date, date1).order(date2).last
   end
 
-  def self.next_page(date,date1,date2)
+  def self.next_page(date, date1, date2)
     where("user_id = ? and id > ? ", date, date1).order(date2).first
   end
 

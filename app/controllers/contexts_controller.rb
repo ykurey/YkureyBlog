@@ -11,7 +11,12 @@ class ContextsController < ApplicationController
       @userInformation = UsersInformation.find_by_user_id(@public_page_user.id)
       @page_title = @userInformation.name
       # 文章
-      @articles = Article.where(:user_id => @public_page_user.id )
+      if params[:search_title].blank?
+        @articles = Article.where(:user_id => @public_page_user.id )
+      elsif params[:search_title].present?
+        @articles = Article.search_title(@public_page_user.id, "%#{params[:search_title]}%")
+      end
+
       if session[:user_id].nil?
         # 未登入
       else
@@ -233,6 +238,11 @@ class ContextsController < ApplicationController
   def is_public_private
     @public_page_user = User.find_by_username(params[:user_id])
     @private_page_user = User.find_by_id(session[:user_id])
+    if @public_page_user.present?
+      @common＿lock = @public_page_user
+    else
+      @common＿lock = @private_page_user
+    end
   end
 
 end

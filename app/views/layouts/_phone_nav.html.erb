@@ -2,13 +2,20 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid">
     <!-- Brand -->
-    <% if @public_page_user.present? %>
-      <%= link_to "回首頁", user_contexts_path(@public_page_user.username), :class => "h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" %>
-    <% else %>
-      <%= link_to "回首頁", user_contexts_path(@private_page_user.username), :class => "h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" %>
-    <% end %>
+    <%= link_to "回首頁", user_contexts_path(@common＿lock.username), :class => "h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" %>
     <!-- Form -->
-    <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+    <%= form_tag(user_contexts_path(@common＿lock.username), :method => "get", :class => "navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto") do %>
+      <div class="form-group mb-0">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <%# text_field_tag :search_title, "", :class => "form-control" %>
+          <input class="form-control" placeholder="Search" type="text" name="search_title">
+        </div>
+      </div>
+    <% end %>
+    <!-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
       <div class="form-group mb-0">
         <div class="input-group input-group-alternative">
           <div class="input-group-prepend">
@@ -17,7 +24,7 @@
           <input class="form-control" placeholder="Search" type="text">
         </div>
       </div>
-    </form>
+    </form> -->
     <!-- User -->
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item dropdown">
