@@ -133,8 +133,10 @@ class ContextsController < ApplicationController
       if @article.nil?
         redirect_to root_path
       else
-        @previous = Article.where("user_id = ? and id < ? ", @public_page_user.id, @article.id).order(:id).last
-        @next = Article.where("user_id = ? and id > ?", @public_page_user.id, @article.id).order(:id).first
+        # @previous = Article.where("user_id = ? and id < ? ", @public_page_user.id, @article.id).order(:id).last
+        @previous = Article.back_page(@public_page_user.id, @article.id, :id)
+        # @next = Article.where("user_id = ? and id > ?", @public_page_user.id, @article.id).order(:id).first
+        @next = Article.next_page(@public_page_user.id, @article.id, :id)
         if session[:user_id].nil?
           # 未登入
         else
@@ -194,7 +196,7 @@ class ContextsController < ApplicationController
         @public_page_user = nil
         @article = Article.friendly.find_by_user_id_and_slug(session[:user_id], params[:id])
         if @article.update(context_params)
-          redirect_to user_context_path(@private_page_user.username, params[:id])
+          redirect_to user_context_path(@private_page_user.username, @article.slug)
         else
           flash.now.alert = "修改失敗"
           render :edit
