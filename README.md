@@ -2,6 +2,7 @@
 
 版本需求
 * ruby 版本 2.5.5
-* rails 5.0
+* rails 5.2.2
+* MysSQL
 
 自己使用ruby on rails 寫的小型部落格
